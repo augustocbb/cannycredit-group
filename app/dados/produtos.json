@@ -1,0 +1,45 @@
+{
+  "_nota": "Taxas/limites de EXEMPLO ilustrativo. Substituir por tabelas reais de parceiros autorizados pelo BACEN antes de operar.",
+  "produtos": {
+    "pessoal": {
+      "label": "Empréstimo pessoal",
+      "taxa_min_am": 0.035, "taxa_max_am": 0.080,
+      "valor_min": 500, "valor_max": 50000,
+      "prazo_min": 6, "prazo_max": 48,
+      "iof": true, "sistema": "price",
+      "elegibilidade": { "tipos_renda": ["clt", "autonomo", "servidor", "aposentado", "pensionista", "outro"] }
+    },
+    "consignado": {
+      "label": "Consignado (INSS / servidor / CLT)",
+      "taxa_min_am": 0.014, "taxa_max_am": 0.026,
+      "valor_min": 1000, "valor_max": 100000,
+      "prazo_min": 12, "prazo_max": 96,
+      "iof": true, "sistema": "price",
+      "elegibilidade": { "tipos_renda": ["aposentado", "pensionista", "servidor", "clt"], "requer_margem": true }
+    },
+    "fgts": {
+      "label": "Antecipação FGTS (saque-aniversário)",
+      "taxa_min_am": 0.014, "taxa_max_am": 0.022,
+      "valor_min": 300, "valor_max": 30000,
+      "prazo_min": 12, "prazo_max": 120,
+      "iof": true, "sistema": "price",
+      "elegibilidade": { "requer_fgts": true, "requer_saque_aniversario": true }
+    },
+    "garantia": {
+      "label": "Crédito com garantia (imóvel / veículo)",
+      "taxa_min_am": 0.012, "taxa_max_am": 0.025,
+      "valor_min": 5000, "valor_max": 3000000,
+      "prazo_min": 12, "prazo_max": 240,
+      "iof": true, "sistema": "price",
+      "elegibilidade": { "requer_garantia": true }, "ltv_max": 0.6
+    },
+    "portabilidade": {
+      "label": "Portabilidade de dívida",
+      "taxa_min_am": 0.014, "taxa_max_am": 0.050,
+      "valor_min": 500, "valor_max": 200000,
+      "prazo_min": 6, "prazo_max": 96,
+      "iof": false, "sistema": "price",
+      "elegibilidade": { "requer_divida_existente": true }
+    }
+  }
+}

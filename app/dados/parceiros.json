@@ -1,0 +1,29 @@
+{
+  "_nota": "Parceiros de EXEMPLO. Nomes fictícios/placeholder até contrato real com instituição autorizada pelo BACEN. 'spread_am' soma-se à taxa base do produto. 'link' usa o macro {subid}.",
+  "parceiros": [
+    {
+      "id": "parceiro_a", "nome": "Instituição Exemplo A", "adapter": "mock",
+      "produtos": ["pessoal", "consignado", "fgts", "garantia", "portabilidade"],
+      "spread_am": 0.000, "aprovacao_base": 0.72,
+      "link": "go/parceiro_a.html?subid={subid}", "autorizado_bcb": true, "placeholder": true
+    },
+    {
+      "id": "parceiro_b", "nome": "Instituição Exemplo B", "adapter": "mock",
+      "produtos": ["pessoal", "consignado", "portabilidade"],
+      "spread_am": 0.004, "aprovacao_base": 0.66,
+      "link": "go/parceiro_b.html?subid={subid}", "autorizado_bcb": true, "placeholder": true
+    },
+    {
+      "id": "parceiro_c", "nome": "Instituição Exemplo C", "adapter": "mock",
+      "produtos": ["pessoal", "consignado", "fgts", "garantia"],
+      "spread_am": 0.008, "aprovacao_base": 0.80,
+      "link": "go/parceiro_c.html?subid={subid}", "autorizado_bcb": true, "placeholder": true
+    },
+    {
+      "id": "easycredito", "nome": "EasyCrédito (marketplace)", "adapter": "easycredito",
+      "produtos": ["pessoal", "consignado", "fgts"],
+      "spread_am": 0.002, "aprovacao_base": 0.70,
+      "link": "{subid}", "autorizado_bcb": true, "placeholder": true, "requer_credencial": true
+    }
+  ]
+}

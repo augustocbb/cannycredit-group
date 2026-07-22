@@ -1,0 +1,37 @@
+{
+  "_nota": "Referências ilustrativas para cálculo e comparação. Taxas de dívida cara (rotativo, cheque especial, Pix parcelado) são ordens de grandeza típicas do mercado BR; confirme antes de exibir como fato.",
+  "iof": {
+    "fixo": 0.0038,
+    "diario": 8.2e-05,
+    "teto_dias": 365
+  },
+  "dti_max": 0.3,
+  "margem_consignavel": {
+    "inss": {
+      "emprestimo": 0.35,
+      "cartao_consignado": 0.05,
+      "cartao_beneficio": 0.05
+    },
+    "servidor": {
+      "emprestimo": 0.35
+    },
+    "clt": {
+      "emprestimo": 0.35
+    }
+  },
+  "taxa_media_am": {
+    "pessoal": 0.0681,
+    "consignado": 0.0182,
+    "fgts": 0.017,
+    "garantia": 0.018,
+    "portabilidade": 0.025
+  },
+  "divida_cara_am": {
+    "cartao_rotativo": 0.135,
+    "cheque_especial": 0.128,
+    "pix_parcelado": 0.09,
+    "cartao_parcelado": 0.065
+  },
+  "atualizado_em": "2026-07-20",
+  "fonte_taxas": "BACEN SGS (api.bcb.gov.br) — séries 25464, 25468"
+}

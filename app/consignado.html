@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empréstimo consignado — INSS e servidor | MelhorEmprestimo</title>
+<meta name="description" content="Consignado para aposentados, pensionistas do INSS e servidores: as menores taxas, com desconto em folha. Compare e simule a parcela e o CET.">
+<link rel="canonical" href="https://melhoremprestimo.com.br/consignado.html">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0F766E">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MelhorEmprestimo">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Empréstimo consignado — INSS e servidor">
+<meta property="og:description" content="As menores taxas, com desconto em folha. Para aposentados, pensionistas do INSS e servidores.">
+<meta property="og:url" content="https://melhoremprestimo.com.br/consignado.html">
+<meta property="og:image" content="https://melhoremprestimo.com.br/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Empréstimo consignado — INSS e servidor">
+<meta name="twitter:description" content="As menores taxas, com desconto em folha.">
+<meta name="twitter:image" content="https://melhoremprestimo.com.br/assets/og-image.png">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/head.js"></script>
+</head>
+<body>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<div class="topbar">100% gratuito para você · <b>Nunca cobramos nada adiantado</b> para liberar crédito · Comparador — não somos banco</div>
+
+<nav class="nav"><div class="wrap navrow">
+  <a href="index.html" class="brand"><span class="logo"></span> MelhorEmprestimo</a>
+  <button class="navtoggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks"><span></span></button>
+  <div class="navlinks" id="navlinks">
+    <a href="index.html">Início</a>
+    <a href="index.html#produtos">Produtos</a>
+    <a href="simulador.html">Simular</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="seguranca.html">Segurança</a>
+    <a href="#solicitar">Solicitar</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="main">
+  <div class="wrap">
+    <h1>Consignado: <span>as menores taxas</span>, com desconto em folha.</h1>
+    <p class="sub">Para aposentados e pensionistas do INSS e servidores. A parcela é descontada direto do benefício ou salário, o que reduz o risco e, por isso, costuma ter as menores taxas do mercado.</p>
+    <div class="cta-row">
+      <a href="#simulador" class="btn alt">Simular agora</a>
+      <a href="index.html#produtos" class="btn ghost">Ver outras modalidades</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Por que o consignado</h2>
+    <div class="grid">
+      <div class="card"><h3>Menores taxas</h3><p>Como a parcela é descontada em folha, o risco é menor e a taxa costuma ser a mais baixa entre as modalidades.</p></div>
+      <div class="card"><h3>Desconto automático</h3><p>A parcela sai direto do benefício ou salário, sem boleto para esquecer.</p></div>
+      <div class="card"><h3>Prazos longos</h3><p>Costuma permitir prazos mais longos, o que reduz o valor da parcela.</p></div>
+      <div class="card"><h3>Para INSS e servidores</h3><p>Aposentados e pensionistas do INSS e servidores públicos, dentro da margem consignável.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="simulador" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2>Simule seu consignado</h2>
+    <p class="lead">Valores ilustrativos; a taxa e a margem consignável dependem da análise da instituição.</p>
+    <div class="simwrap">
+      <div class="sim">
+        <label for="valor">Valor desejado</label>
+        <input id="valor" type="number" min="1000" max="50000" step="500" value="10000">
+        <input id="valorRange" type="range" min="1000" max="50000" step="500" value="10000" aria-label="Valor desejado (controle deslizante)">
+        <label for="meses">Prazo: <span id="mesesOut" class="rangeval">48x</span></label>
+        <input id="meses" type="range" min="12" max="84" step="12" value="48" aria-label="Prazo em meses">
+        <label for="modalidade">Finalidade / modalidade</label>
+        <select id="modalidade">
+          <option value="pessoal">Empréstimo pessoal</option>
+          <option value="consignado" selected>Consignado (INSS / servidor)</option>
+          <option value="garantia">Com garantia (imóvel/veículo)</option>
+        </select>
+      </div>
+      <div class="sim">
+        <div class="simout" aria-live="polite">
+          <div style="font-size:13px;color:#334155;">Parcela a partir de</div>
+          <div class="parc" id="outParcela">—</div>
+          <div id="outResumo" style="font-size:13px;color:#475569;margin-bottom:10px;">—</div>
+          <div class="row"><span>Taxa de juros</span><b id="outTaxa">—</b></div>
+          <div class="row"><span>CET aproximado</span><b id="outCet">—</b></div>
+          <div class="row"><span>Total estimado</span><b id="outTotal">—</b></div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:12px;">Simulação ilustrativa (Tabela Price). CET aproximado. Não é oferta nem garantia de aprovação.</p>
+      </div>
+    </div>
+    <h3 style="margin:30px 0 12px;font-size:19px;">Ofertas para essa simulação</h3>
+    <div class="ofertas" id="ofertas" aria-live="polite"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px;">Instituições e taxas são <b>exemplos ilustrativos</b>. Compare sempre pelo CET.</p>
+  </div>
+</section>
+
+<section id="solicitar" style="background:#eef4f3;">
+  <div class="wrap">
+    <div class="leadbox">
+      <h2 style="color:#fff;">Solicitar consignado</h2>
+      <p style="color:#a7f3d0;margin-top:6px;">Grátis e sem compromisso. Não pedimos pagamento adiantado.</p>
+      <form id="leadForm">
+        <div class="row2">
+          <input required name="nome" placeholder="Nome completo" aria-label="Nome completo" type="text" autocomplete="name">
+          <input required name="email" placeholder="E-mail" aria-label="E-mail" type="email" autocomplete="email">
+        </div>
+        <div class="row2">
+          <input required name="telefone" placeholder="Telefone / WhatsApp" aria-label="Telefone ou WhatsApp" type="tel" autocomplete="tel" inputmode="tel">
+          <select required name="finalidade_sel" aria-label="Vínculo"><option value="">Seu vínculo</option><option>Aposentado/pensionista INSS</option><option>Servidor público</option><option>Militar</option><option>Outro</option></select>
+        </div>
+        <input type="hidden" name="valor"><input type="hidden" name="prazo"><input type="hidden" name="finalidade"><input type="hidden" name="parceiro">
+        <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium">
+        <input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content">
+        <input type="hidden" name="utm_term"><input type="hidden" name="referrer">
+        <input type="hidden" name="page_url"><input type="hidden" name="submitted_at">
+        <input type="text" name="empresa" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+        <label style="display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:12.5px;color:#a7f3d0;">
+          <input required type="checkbox" name="consentimento" style="width:auto;margin-top:3px;">
+          <span>Autorizo o contato e o compartilhamento dos meus dados com instituições parceiras, conforme a <a href="privacidade.html" style="color:#6ee7b7;">Política de Privacidade</a>.</span>
+        </label>
+        <button class="btn alt" style="width:100%;margin-top:16px;" type="submit">Solicitar agora</button>
+        <p id="thanks" style="display:none;color:#6ee7b7;margin-top:12px;">Recebemos sua solicitação! Uma instituição parceira vai entrar em contato. Não pague nada adiantado.</p>
+      </form>
+    </div>
+    <div class="disc">
+      <b>Aviso:</b> Comparador/intermediação de contato, não instituição financeira. Não garantimos aprovação nem condições. Consignado sujeito a margem consignável e análise. Empréstimo tem custo — avalie o CET. Não cobramos valor antecipado.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas frequentes</h2>
+    <div class="faq" style="margin-top:18px;max-width:820px;">
+      <details><summary>Quem pode contratar?</summary><p>Aposentados e pensionistas do INSS, servidores públicos e alguns trabalhadores com convênio. A contratação depende da sua margem consignável e da análise da instituição.</p></details>
+      <details><summary>O que é margem consignável?</summary><p>É o limite do seu benefício ou salário que pode ser comprometido com o desconto das parcelas (definido em lei). A instituição verifica a sua margem disponível.</p></details>
+      <details><summary>Por que a taxa é menor?</summary><p>Porque a parcela é descontada direto da folha/benefício, reduzindo o risco de inadimplência. Ainda assim, compare o CET entre as ofertas.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> MelhorEmprestimo</div>
+  Comparador de crédito. Não somos instituição financeira e não garantimos aprovação — conectamos você a instituições parceiras autorizadas pelo Banco Central.
+  <div class="legallinks">
+    <a href="sobre.html">Sobre</a> ·
+    <a href="termos.html">Termos de Uso</a> ·
+    <a href="privacidade.html">Privacidade (LGPD)</a> ·
+    <a href="seguranca.html">Segurança e CET</a>
+  </div>
+  Crédito consciente: empréstimo tem custo. Avalie o CET antes de contratar. Não pague nada adiantado. · &copy; 2026 MelhorEmprestimo.
+</div></footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

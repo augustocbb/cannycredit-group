@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empréstimo pessoal — compare e simule | MelhorEmprestimo</title>
+<meta name="description" content="Empréstimo pessoal sem garantia: compare ofertas, simule a parcela e o CET e solicite. Grátis, sem pagar nada adiantado.">
+<link rel="canonical" href="https://melhoremprestimo.com.br/emprestimo-pessoal.html">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0F766E">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MelhorEmprestimo">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Empréstimo pessoal — compare e simule">
+<meta property="og:description" content="Sem garantia, para qualquer finalidade. Compare ofertas, simule a parcela e o CET.">
+<meta property="og:url" content="https://melhoremprestimo.com.br/emprestimo-pessoal.html">
+<meta property="og:image" content="https://melhoremprestimo.com.br/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Empréstimo pessoal — compare e simule">
+<meta name="twitter:description" content="Sem garantia, para qualquer finalidade. Compare e simule.">
+<meta name="twitter:image" content="https://melhoremprestimo.com.br/assets/og-image.png">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/head.js"></script>
+</head>
+<body>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<div class="topbar">100% gratuito para você · <b>Nunca cobramos nada adiantado</b> para liberar crédito · Comparador — não somos banco</div>
+
+<nav class="nav"><div class="wrap navrow">
+  <a href="index.html" class="brand"><span class="logo"></span> MelhorEmprestimo</a>
+  <button class="navtoggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks"><span></span></button>
+  <div class="navlinks" id="navlinks">
+    <a href="index.html">Início</a>
+    <a href="index.html#produtos">Produtos</a>
+    <a href="simulador.html">Simular</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="seguranca.html">Segurança</a>
+    <a href="#solicitar">Solicitar</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="main">
+  <div class="wrap">
+    <h1>Empréstimo pessoal para o que <span>você precisar</span>.</h1>
+    <p class="sub">Sem garantia e para qualquer finalidade. Compare ofertas de várias instituições, simule a parcela e o CET, e solicite pela melhor. Grátis e sem pagar nada adiantado.</p>
+    <div class="cta-row">
+      <a href="#simulador" class="btn alt">Simular agora</a>
+      <a href="index.html#produtos" class="btn ghost">Ver outras modalidades</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Por que o empréstimo pessoal</h2>
+    <div class="grid">
+      <div class="card"><h3>Sem garantia</h3><p>Não precisa dar imóvel nem veículo. A aprovação depende da análise de crédito.</p></div>
+      <div class="card"><h3>Qualquer finalidade</h3><p>Quitar dívidas mais caras, uma emergência ou um projeto — você decide.</p></div>
+      <div class="card"><h3>Aprovação mais ágil</h3><p>Processo simples. Por não ter garantia, a taxa costuma ser maior que a do consignado.</p></div>
+      <div class="card"><h3>Compare pelo CET</h3><p>Veja o custo total, não só a parcela. Prazo maior baixa a parcela, mas soma mais juros.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="simulador" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2>Simule seu empréstimo pessoal</h2>
+    <p class="lead">Valores ilustrativos; a taxa final depende de análise da instituição.</p>
+    <div class="simwrap">
+      <div class="sim">
+        <label for="valor">Valor desejado</label>
+        <input id="valor" type="number" min="500" max="50000" step="500" value="5000">
+        <input id="valorRange" type="range" min="500" max="50000" step="500" value="5000" aria-label="Valor desejado (controle deslizante)">
+        <label for="meses">Prazo: <span id="mesesOut" class="rangeval">24x</span></label>
+        <input id="meses" type="range" min="6" max="48" step="6" value="24" aria-label="Prazo em meses">
+        <label for="modalidade">Finalidade / modalidade</label>
+        <select id="modalidade">
+          <option value="pessoal" selected>Empréstimo pessoal</option>
+          <option value="consignado">Consignado (INSS / servidor)</option>
+          <option value="garantia">Com garantia (imóvel/veículo)</option>
+        </select>
+      </div>
+      <div class="sim">
+        <div class="simout" aria-live="polite">
+          <div style="font-size:13px;color:#334155;">Parcela a partir de</div>
+          <div class="parc" id="outParcela">—</div>
+          <div id="outResumo" style="font-size:13px;color:#475569;margin-bottom:10px;">—</div>
+          <div class="row"><span>Taxa de juros</span><b id="outTaxa">—</b></div>
+          <div class="row"><span>CET aproximado</span><b id="outCet">—</b></div>
+          <div class="row"><span>Total estimado</span><b id="outTotal">—</b></div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:12px;">Simulação ilustrativa (Tabela Price). CET aproximado. Não é oferta nem garantia de aprovação.</p>
+      </div>
+    </div>
+    <h3 style="margin:30px 0 12px;font-size:19px;">Ofertas para essa simulação</h3>
+    <div class="ofertas" id="ofertas" aria-live="polite"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px;">Instituições e taxas são <b>exemplos ilustrativos</b>. Compare sempre pelo CET.</p>
+  </div>
+</section>
+
+<section id="solicitar" style="background:#eef4f3;">
+  <div class="wrap">
+    <div class="leadbox">
+      <h2 style="color:#fff;">Solicitar empréstimo pessoal</h2>
+      <p style="color:#a7f3d0;margin-top:6px;">Grátis e sem compromisso. Não pedimos pagamento adiantado.</p>
+      <form id="leadForm">
+        <div class="row2">
+          <input required name="nome" placeholder="Nome completo" aria-label="Nome completo" type="text" autocomplete="name">
+          <input required name="email" placeholder="E-mail" aria-label="E-mail" type="email" autocomplete="email">
+        </div>
+        <div class="row2">
+          <input required name="telefone" placeholder="Telefone / WhatsApp" aria-label="Telefone ou WhatsApp" type="tel" autocomplete="tel" inputmode="tel">
+          <select required name="finalidade_sel" aria-label="Finalidade"><option value="">Finalidade</option><option>Quitar dívidas</option><option>Emergência</option><option>Projeto pessoal</option><option>Outro</option></select>
+        </div>
+        <input type="hidden" name="valor"><input type="hidden" name="prazo"><input type="hidden" name="finalidade"><input type="hidden" name="parceiro">
+        <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium">
+        <input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content">
+        <input type="hidden" name="utm_term"><input type="hidden" name="referrer">
+        <input type="hidden" name="page_url"><input type="hidden" name="submitted_at">
+        <input type="text" name="empresa" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+        <label style="display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:12.5px;color:#a7f3d0;">
+          <input required type="checkbox" name="consentimento" style="width:auto;margin-top:3px;">
+          <span>Autorizo o contato e o compartilhamento dos meus dados com instituições parceiras, conforme a <a href="privacidade.html" style="color:#6ee7b7;">Política de Privacidade</a>.</span>
+        </label>
+        <button class="btn alt" style="width:100%;margin-top:16px;" type="submit">Solicitar agora</button>
+        <p id="thanks" style="display:none;color:#6ee7b7;margin-top:12px;">Recebemos sua solicitação! Uma instituição parceira vai entrar em contato. Não pague nada adiantado.</p>
+      </form>
+    </div>
+    <div class="disc">
+      <b>Aviso:</b> Comparador/intermediação de contato, não instituição financeira. Não garantimos aprovação nem condições. Empréstimo tem custo — avalie o CET. Crédito sujeito a análise. Não cobramos valor antecipado.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas frequentes</h2>
+    <div class="faq" style="margin-top:18px;max-width:820px;">
+      <details><summary>Preciso dar garantia?</summary><p>Não. O empréstimo pessoal é sem garantia. Por isso a taxa costuma ser maior que a do consignado ou do crédito com garantia.</p></details>
+      <details><summary>Posso usar para quitar outras dívidas?</summary><p>Sim, é uma finalidade comum. Compare o CET: só vale a pena se o custo do novo empréstimo for menor que o das dívidas atuais.</p></details>
+      <details><summary>Vocês cobram algo?</summary><p>Não. Nunca pedimos pagamento antecipado. Se alguém pedir em nosso nome, é golpe. Ver <a href="seguranca.html">Segurança</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> MelhorEmprestimo</div>
+  Comparador de crédito. Não somos instituição financeira e não garantimos aprovação — conectamos você a instituições parceiras autorizadas pelo Banco Central.
+  <div class="legallinks">
+    <a href="sobre.html">Sobre</a> ·
+    <a href="termos.html">Termos de Uso</a> ·
+    <a href="privacidade.html">Privacidade (LGPD)</a> ·
+    <a href="seguranca.html">Segurança e CET</a>
+  </div>
+  Crédito consciente: empréstimo tem custo. Avalie o CET antes de contratar. Não pague nada adiantado. · &copy; 2026 MelhorEmprestimo.
+</div></footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
