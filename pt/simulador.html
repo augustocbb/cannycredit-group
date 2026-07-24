@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Credit GPS — quanto dá pra pegar | MelhorEmprestimo</title>
+<meta name="description" content="Escolha o objetivo, clique em Buscar (estimativa com taxas médias BACEN) e Cote com informações. Sem CPF, sem pagar nada adiantado.">
+<link rel="canonical" href="https://melhoremprestimo.com.br/simulador.html">
+<link rel="icon" href="assets/favicon.svg">
+<meta name="theme-color" content="#0F766E">
+<meta name="robots" content="noindex,follow">
+<meta property="og:title" content="Credit GPS — quanto dá pra pegar">
+<meta property="og:description" content="Estimativa (média BACEN) e cotação real. Sem CPF, sem pagar adiantado.">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/head.js"></script>
+</head>
+<body>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<div class="topbar">100% gratuito · <b>Nunca cobramos adiantado</b> · Não pedimos CPF</div>
+
+<nav class="nav"><div class="wrap navrow">
+  <a href="index.html" class="brand"><span class="logo"></span> MelhorEmprestimo</a>
+  <button class="navtoggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks"><span></span></button>
+  <div class="navlinks" id="navlinks">
+    <a href="index.html">Início</a><a href="simulador.html">Simular</a>
+    <a href="sobre.html">Sobre</a><a href="seguranca.html">Segurança</a>
+  </div>
+</div></nav>
+
+<header class="hero-sim">
+  <div class="wrap wrap-narrow">
+    <div class="hero-wm">
+      <span class="wings"><svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g fill="currentColor"><path d="M110 52 C86 30 54 22 22 26 C48 34 64 44 82 56 C58 52 40 54 24 62 C50 60 78 60 104 56 Z"/><path d="M110 52 C134 30 166 22 198 26 C172 34 156 44 138 56 C162 52 180 54 196 62 C170 60 142 60 116 56 Z"/><ellipse cx="110" cy="56" rx="12" ry="15"/><circle cx="110" cy="40" r="8"/><path d="M110 32 L118 28 L112 24 Z"/></g></svg></span>
+      <span class="tx">Canny<b>Credit</b></span>
+    </div>
+    <div class="hero-loc">MelhorEmprestimo · Brasil · pt-BR</div>
+    <span class="hero-chip">⚡ Credit GPS · motor de decisão</span>
+    <h1 class="hero-h1">Descubra <span>quanto dá pra pegar</span> — e a forma mais barata.</h1>
+    <p class="hero-sub">Estimativa na hora com as taxas médias do Banco Central. Escolha o objetivo, veja os números e só então cote com as instituições. Não pedimos CPF nesta etapa.</p>
+    <div class="hero-trust"><span>🔒 Dados protegidos · LGPD</span><span>✅ Nunca cobramos adiantado</span><span>📊 Taxas médias BACEN</span></div>
+  </div>
+</header>
+
+<section id="main" class="sim-sec">
+  <div class="wrap wrap-narrow">
+    <div class="sim-card">
+    <div id="cgps">
+
+      <!-- objetivo troca o quadro -->
+      <div class="cg-obj" role="tablist" aria-label="Objetivo">
+        <button type="button" class="cg-objbtn on" data-obj="capacidade" role="tab">Quanto dá pra pegar?</button>
+        <button type="button" class="cg-objbtn" data-obj="valor" role="tab">Quero um valor</button>
+        <button type="button" class="cg-objbtn" data-obj="dividas" role="tab">Já tenho dívidas</button>
+      </div>
+
+      <!-- comum a todos os objetivos -->
+      <label for="cg-capacidade">Quanto posso pagar por mês</label>
+      <input id="cg-capacidade" type="number" min="0" step="50" value="800" inputmode="numeric">
+
+      <!-- QUADRO: quanto dá pra pegar -->
+      <div class="cg-quadro" data-obj="capacidade">
+        <p class="cg-fine">Calculamos o teto por modalidade (consignado, garantia, FGTS, pessoal) e o total.</p>
+      </div>
+
+      <!-- QUADRO: quero um valor -->
+      <div class="cg-quadro" data-obj="valor" hidden>
+        <label for="cg-valor">Quanto quero levantar: <b id="cg-valor-out" class="rangeval">R$ 10.000</b></label>
+        <input id="cg-valor" type="number" min="500" max="200000" step="500" value="10000" inputmode="numeric">
+        <input id="cg-valor-range" type="range" min="500" max="100000" step="500" value="10000" aria-label="Quanto quero levantar">
+        <div class="cg-prefq">O que priorizar?</div>
+        <div class="cg-opts" role="radiogroup" aria-label="Prioridade">
+          <button type="button" class="cg-opt" data-pref="menor_parcela"><b>Menor parcela</b><span>pago menos por mês</span></button>
+          <button type="button" class="cg-opt on" data-pref="menor_juros"><b>Menor juros</b><span>pago menos no total</span></button>
+          <button type="button" class="cg-opt" data-pref="maior_valor"><b>Maior valor</b><span>o máximo que cabe</span></button>
+        </div>
+      </div>
+
+      <!-- QUADRO: já tenho dívidas -->
+      <div class="cg-quadro" data-obj="dividas" hidden>
+        <label for="cg-caixa-alvo">Quanto quero levantar agora (opcional)</label>
+        <input id="cg-caixa-alvo" type="number" min="0" step="100" value="0" inputmode="numeric">
+        <p class="cg-fine">Liste as dívidas: saldo, importância e por quantos meses dá pra segurar cada uma.</p>
+        <div id="cg-dividas"></div>
+        <button type="button" id="cg-add-divida" class="btn ghost small">+ adicionar dívida</button>
+      </div>
+
+      <!-- perfil (comum, recolhível) -->
+      <details class="cg-more">
+        <summary>Seu perfil (deixa a estimativa mais certeira)</summary>
+        <div class="cg-more-body">
+          <label for="cg-renda">Renda mensal</label>
+          <input id="cg-renda" type="number" min="0" step="100" value="3000" inputmode="numeric">
+          <label for="cg-tiporenda">Tipo de renda</label>
+          <select id="cg-tiporenda">
+            <option value="clt">CLT (carteira assinada)</option>
+            <option value="aposentado">Aposentado (INSS)</option>
+            <option value="pensionista">Pensionista (INSS)</option>
+            <option value="servidor">Servidor público</option>
+            <option value="autonomo">Autônomo</option>
+            <option value="outro">Outro</option>
+          </select>
+          <label for="cg-score">Seu crédito (autoavaliação)</label>
+          <select id="cg-score">
+            <option value="baixo">Já tive restrição / score baixo</option>
+            <option value="medio" selected>Sem restrição / score médio</option>
+            <option value="alto">Ótimo histórico / score alto</option>
+          </select>
+        </div>
+      </details>
+
+      <button id="cg-buscar" class="btn cg-cta" type="button">Buscar</button>
+      <p class="cg-fine">Estimativa local e instantânea (média BACEN). Não pedimos CPF.</p>
+
+      <!-- estimativa (pré-carregada) -->
+      <div id="cg-estimativa" aria-live="polite"></div>
+
+      <!-- garantias: incluíveis DEPOIS da primeira simulação (libera mais / mais barato) -->
+      <div id="cg-garantia" hidden>
+        <div class="cg-addon">
+          <div class="cg-addon-t">💡 Tem garantia? Costuma liberar mais crédito e baratear.</div>
+          <div class="cg-checks">
+            <label><input type="checkbox" id="cg-imovel"> Imóvel</label>
+            <label><input type="checkbox" id="cg-veiculo"> Veículo</label>
+            <label><input type="checkbox" id="cg-fgts"> FGTS</label>
+          </div>
+          <div class="row2">
+            <input id="cg-valorbem" type="number" min="0" step="1000" placeholder="Valor do imóvel/veículo (R$)" inputmode="numeric">
+            <input id="cg-saldofgts" type="number" min="0" step="100" placeholder="Saldo do FGTS (R$)" inputmode="numeric">
+          </div>
+          <button id="cg-incluir" class="btn ghost small" type="button">Incluir e recalcular</button>
+        </div>
+      </div>
+
+      <!-- cotar com informações -->
+      <div id="cg-cotar-wrap" hidden>
+        <button id="cg-cotar" class="btn cg-cta" type="button">Cotar com informações →</button>
+        <form id="cg-cotar-form" hidden novalidate>
+          <p class="cg-fine">Sem CPF. Enviamos a uma instituição parceira autorizada, que confirma e ajusta.</p>
+          <input required name="nome" placeholder="Nome completo" autocomplete="name" type="text">
+          <div class="row2">
+            <input required name="telefone" placeholder="WhatsApp / telefone" autocomplete="tel" type="tel" inputmode="tel">
+            <input required name="email" placeholder="E-mail" autocomplete="email" type="email">
+          </div>
+          <input type="text" name="empresa" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <label class="cg-consent"><input required type="checkbox" name="consentimento"> Autorizo o contato e o compartilhamento dos meus dados com instituições parceiras, conforme a <a href="privacidade.html">Política de Privacidade</a>.</label>
+          <button class="btn cg-cta" type="submit">Cotar agora</button>
+        </form>
+        <span id="cg-status" class="cg-status"></span>
+        <div id="cg-cotacao" aria-live="polite"></div>
+      </div>
+
+    </div>
+    </div>
+    <p class="sim-disc">Comparador de crédito — não somos instituição financeira e não garantimos aprovação. Empréstimo tem custo: avalie o CET. Estimativas com base na média de mercado (BACEN).</p>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> MelhorEmprestimo</div>
+  Comparador de crédito — não somos instituição financeira e não garantimos aprovação. Empréstimo tem custo: avalie o CET. Não pague nada adiantado.
+  <div class="legallinks">
+    <a href="sobre.html">Sobre</a> · <a href="termos.html">Termos</a> ·
+    <a href="privacidade.html">Privacidade (LGPD)</a> · <a href="seguranca.html">Segurança e CET</a>
+  </div>
+  &copy; 2026 MelhorEmprestimo · CannyCredit Group.
+</div></footer>
+
+<script src="assets/engine/finance.js"></script>
+<script src="assets/engine/eligibility.js"></script>
+<script src="assets/engine/approval.js"></script>
+<script src="assets/engine/debtswap.js"></script>
+<script src="assets/engine/pareto.js"></script>
+<script src="assets/engine/optimizer.js"></script>
+<script src="assets/engine/cashflow.js"></script>
+<script src="assets/engine/capacidade.js"></script>
+<script src="assets/engine/datasource.js"></script>
+<script src="assets/engine/adapters/mock.js"></script>
+<script src="assets/engine/adapters/easycredito.js"></script>
+<script src="assets/engine/adapters/index.js"></script>
+<script src="assets/engine/app-cgps.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

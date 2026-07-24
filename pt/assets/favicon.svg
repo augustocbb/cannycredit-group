@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CannyCredit">
+<circle cx="32" cy="32" r="32" fill="#161009"/>
+<circle cx="32" cy="32" r="29" fill="none" stroke="#FFC717" stroke-width="1.6" opacity=".5"/>
+<path d="M12 46 Q31 50.5 52 42.5" fill="none" stroke="#A07B41" stroke-width="3" stroke-linecap="round"/>
+<path d="M44 43.5 q6 -6.5 11 -5 q-4.5 6 -11 5 z" fill="#6F9A4E"/>
+<path d="M13.5 27.5 L25 32 L20.5 39 Z" fill="#E89C00"/>
+<path d="M22 41 C15 40 12 32 17 27 C21 22.5 28 20.5 34 22 C38 23 41 25.5 42.5 28.5 C43.5 30.5 43.5 34 42 36.5 C39.5 40 32 42 26 41.4 Z" fill="#FFC717"/>
+<path d="M32.5 20 q1.5 -3.6 5 -3.4 q-1.2 3 -3.4 4.6 z" fill="#FFC717"/>
+<path d="M24 31 q8.5 -3.5 14 1.5 q-6.5 5.5 -14 2 z" fill="#E89C00"/>
+<path d="M41.5 27.5 L49.5 29.5 L41.5 32 Z" fill="#E8760E"/>
+<circle cx="38.5" cy="27.2" r="1.8" fill="#161009"/><circle cx="39.1" cy="26.6" r=".5" fill="#FBF6EC"/>
+<path d="M28 40.8 l-1 5.2 M33.5 40.6 l1.2 5.4" stroke="#161009" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
