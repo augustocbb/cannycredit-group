@@ -99,12 +99,14 @@
   }
 
   // ---- render estimativas ----
+  var ICON = { pessoal: '💵', consignado: '📋', fgts: '🪙', garantia: '🔑', portabilidade: '🔄' };
   function renderCap(r) {
     var cards = r.porProduto.map(function (p) {
       var d = p.max > 0;
-      return '<div class="cg-cap-item' + (d ? '' : ' off') + '"><div class="cg-cap-h">' + esc(p.label) + '</div>' +
+      return '<div class="cg-cap-item' + (d ? '' : ' off') + '"><div class="cg-cap-ico">' + (ICON[p.id] || '💳') + '</div>' +
+        '<div class="cg-cap-b"><div class="cg-cap-h">' + esc(p.label) + '</div>' +
         '<div class="cg-cap-v">' + (d ? 'até ' + brl(p.max) : '—') + '</div>' +
-        '<div class="cg-cap-m">' + (d ? 'parcela ~' + brl(p.parcelaNoMax) + '/mês · ' : '') + esc(p.motivo) + '</div></div>';
+        '<div class="cg-cap-m">' + (d ? 'parcela ~' + brl(p.parcelaNoMax) + '/mês · ' : '') + esc(p.motivo) + '</div></div></div>';
     }).join('');
     $('cg-estimativa').innerHTML = '<div class="cg-selo est">Estimativa · média BACEN' + freq() + '</div>' +
       '<div class="cg-captotal"><span>Você pode pegar até</span><b>' + brl(r.total) + '</b></div>' +
@@ -148,7 +150,7 @@
   // ---- COTAR: infos reais ----
   function cotarReal() {
     if (!STATE) return;
-    setStatus('Consultando as plataformas…');
+    setStatus('Consultando as plataformas…', true);
     var box = $('cg-cotacao'); box.innerHTML = '';
     if (STATE.obj === 'capacidade' && STATE.capResult) {
       var reqs = STATE.capResult.porProduto.filter(function (p) { return p.max > 0; });
@@ -187,7 +189,7 @@
         '<div><div class="k">Recebe</div><div class="v">' + brl(o.approvedAmount) + '</div></div><div class="act">' + acao + '</div></div>';
     }).join('') + '</div>';
   }
-  function setStatus(t) { var e = $('cg-status'); if (e) e.textContent = t; }
+  function setStatus(t, loading) { var e = $('cg-status'); if (e) { e.textContent = t; e.classList.toggle('loading', !!loading); } }
 
   function salvarLead(form) {
     var data = {}; Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.name !== 'empresa') data[el.name] = el.value; });
