@@ -1,134 +1,184 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>CannyCredit Group — infraestrutura de decisão e crédito</title>
-<meta name="description" content="CannyCredit Group: holding de produtos financeiros e de análise. Cobertura global de triagem de crédito e um motor de decisão no Brasil.">
-<meta name="robots" content="noindex,follow">
-<meta name="theme-color" content="#0B3B37">
+<title>CannyCredit Group — infrastructure for credit decisions</title>
+<meta name="description" content="CannyCredit Group: a holding of financial and analytics products. Global credit screening and a decision engine on the ground in Brazil.">
+<meta name="theme-color" content="#161009">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Ccircle%20cx='32'%20cy='32'%20r='32'%20fill='%23161009'/%3E%3Cpath%20d='M12%2046%20Q31%2050.5%2052%2042.5'%20fill='none'%20stroke='%23A07B41'%20stroke-width='3'%20stroke-linecap='round'/%3E%3Cpath%20d='M13.5%2027.5%20L25%2032%20L20.5%2039%20Z'%20fill='%23E89C00'/%3E%3Cpath%20d='M22%2041%20C15%2040%2012%2032%2017%2027%20C21%2022.5%2028%2020.5%2034%2022%20C38%2023%2041%2025.5%2042.5%2028.5%20C43.5%2030.5%2043.5%2034%2042%2036.5%20C39.5%2040%2032%2042%2026%2041.4%20Z'%20fill='%23FFC717'/%3E%3Cpath%20d='M24%2031%20q8.5%20-3.5%2014%201.5%20q-6.5%205.5%20-14%202%20z'%20fill='%23E89C00'/%3E%3Cpath%20d='M41.5%2027.5%20L49.5%2029.5%20L41.5%2032%20Z'%20fill='%23E8760E'/%3E%3Ccircle%20cx='38.5'%20cy='27.2'%20r='1.8'%20fill='%23161009'/%3E%3C/svg%3E">
 <style>
-  :root{--ink:#0F172A;--brand:#0F766E;--brand2:#10B981;--dark:#0B3B37;--muted:#64748B;
-    --line:#E2E8F0;--bg:#F8FAFC;--card:#fff;--good:#047857;--goodbg:#ECFDF5;}
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;}
-  body{color:var(--ink);background:var(--bg);line-height:1.55;-webkit-text-size-adjust:100%;}
-  a{color:var(--brand);text-decoration:none;}
+  :root{--vulcan:#161009;--vulcan2:#241A0F;--cream:#FBF6EC;--card:#FFFFFF;--ink:#1F1810;
+    --mut:#6E6455;--line:#EBE2D0;--canary:#FFC717;--canaryd:#E89C00;--link:#A65B00;
+    --branch:#6F9A4E;--good:#2F7D46;--goodbg:#EAF5EC;--warn:#8A5B12;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;}
+  body{color:var(--ink);background:var(--cream);line-height:1.55;-webkit-text-size-adjust:100%;}
+  a{color:var(--link);text-decoration:none;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
-  .topbar{background:#062e2a;color:#a7f3d0;font-size:12.5px;text-align:center;padding:7px;letter-spacing:.2px;}
+  svg{display:block;}
+  .topbar{background:#0B0805;color:#C9B58A;font-size:12.5px;text-align:center;padding:7px;letter-spacing:.2px;}
 
   /* hero */
-  header.hero{background:linear-gradient(140deg,var(--dark),var(--brand));color:#fff;padding:60px 0 70px;}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.2px;}
-  .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#fff3,#fff1);border:1px solid #ffffff55;position:relative;display:inline-block;}
-  .logo::after{content:"";position:absolute;inset:9px;border:2.5px solid #fff;border-radius:3px;border-right-color:transparent;transform:rotate(-45deg);}
-  h1{font-size:44px;line-height:1.1;font-weight:800;letter-spacing:-.6px;max-width:760px;margin-top:26px;}
-  h1 span{color:#6ee7b7;}
-  .sub{font-size:18.5px;color:#c7f0e6;max-width:640px;margin-top:16px;}
+  header.hero{background:radial-gradient(120% 140% at 15% 0%,var(--vulcan2),var(--vulcan) 60%);
+    color:#fff;padding:52px 0 66px;position:relative;overflow:hidden;}
+  .brandrow{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;
+    letter-spacing:-.2px;color:#F4EEE0;}
+  .brandrow .mk{width:38px;height:38px;flex:0 0 38px;}
+  .wm{position:relative;display:inline-block;margin-top:26px;padding:0 40px 0 4px;}
+  .wm-bg{position:absolute;left:-18px;top:50%;transform:translateY(-52%);width:340px;height:140px;
+    color:var(--canary);opacity:.13;pointer-events:none;}
+  @media(max-width:560px){.wm-bg{width:250px;}}
+  .wm-tx{position:relative;font-size:58px;line-height:1;font-weight:800;letter-spacing:-1.5px;color:#fff;}
+  .wm-tx b{color:var(--canary);font-weight:800;}
+  @media(max-width:560px){.wm-tx{font-size:42px;}}
+  .tagline{font-size:18.5px;color:#D8CBB4;max-width:640px;margin-top:20px;}
   .pills{margin-top:22px;display:flex;gap:9px;flex-wrap:wrap;}
-  .pill{background:rgba(255,255,255,.12);border:1px solid rgba(110,231,183,.4);color:#d1fae5;padding:6px 13px;border-radius:20px;font-size:13px;}
-  .cta{display:inline-block;background:#fff;color:var(--dark);font-weight:800;padding:14px 22px;border-radius:12px;margin-top:26px;font-size:15.5px;}
-  .cta:hover{filter:brightness(.96);}
-  .empresa a.abrir{display:inline-block;margin-top:12px;font-weight:700;font-size:13.5px;}
+  .pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,199,23,.32);color:#EBD9A8;
+    padding:6px 13px;border-radius:20px;font-size:13px;}
+  .cta{display:inline-block;background:var(--canary);color:var(--vulcan);font-weight:800;
+    padding:14px 22px;border-radius:12px;margin-top:28px;font-size:15.5px;
+    box-shadow:0 6px 18px -6px rgba(255,199,23,.55);transition:transform .12s,box-shadow .12s;}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(255,199,23,.7);}
 
   /* números */
   section{padding:52px 0;}
-  .eyebrow{color:var(--brand);font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;}
+  .eyebrow{color:var(--canaryd);font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;}
   h2{font-size:30px;font-weight:800;letter-spacing:-.4px;margin:8px 0 6px;}
-  .lead{color:var(--muted);font-size:16.5px;max-width:640px;}
+  .lead{color:var(--mut);font-size:16.5px;max-width:640px;}
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
   @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:460px){.stats{grid-template-columns:1fr;} h1{font-size:33px;}}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 22px;}
-  .stat .n{font-size:44px;font-weight:800;color:var(--brand);letter-spacing:-1px;line-height:1;}
+  @media(max-width:460px){.stats{grid-template-columns:1fr;}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 22px;
+    box-shadow:0 1px 2px rgba(20,12,4,.04),0 12px 28px -18px rgba(20,12,4,.2);}
+  .stat .n{font-size:44px;font-weight:800;color:var(--canaryd);letter-spacing:-1px;line-height:1;}
   .stat .n small{font-size:26px;}
-  .stat .l{margin-top:8px;font-size:14.5px;color:#334155;font-weight:600;}
-  .stat .d{margin-top:3px;font-size:12.5px;color:var(--muted);}
+  .stat .l{margin-top:8px;font-size:14.5px;color:#3A3226;font-weight:600;}
+  .stat .d{margin-top:3px;font-size:12.5px;color:var(--mut);}
+
+  /* método */
+  .cap{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .capgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px;}
+  @media(max-width:760px){.capgrid{grid-template-columns:1fr;}}
+  .capgrid .ic{width:34px;height:34px;border-radius:10px;background:var(--goodbg);
+    display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:9px;}
+  .capgrid h4{font-size:16px;margin-bottom:4px;}
+  .capgrid p{font-size:14px;color:#4A4234;}
 
   /* empresas */
   .empresas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
   @media(max-width:760px){.empresas{grid-template-columns:1fr;}}
-  .empresa{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;}
-  .empresa .tag{display:inline-block;font-size:11.5px;font-weight:700;color:var(--good);background:var(--goodbg);border-radius:20px;padding:3px 10px;}
+  .empresa{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+    box-shadow:0 1px 2px rgba(20,12,4,.04),0 12px 28px -18px rgba(20,12,4,.2);}
+  .empresa .tag{display:inline-block;font-size:11.5px;font-weight:700;color:var(--good);
+    background:var(--goodbg);border-radius:20px;padding:3px 10px;}
+  .empresa .tag.soon{color:var(--warn);background:#FBEFD0;}
   .empresa h3{font-size:19px;margin:10px 0 4px;}
-  .empresa p{font-size:14px;color:#475569;}
-  .empresa .m{margin-top:10px;font-size:13px;color:var(--muted);}
+  .empresa p{font-size:14px;color:#4A4234;}
+  .empresa .m{margin-top:10px;font-size:13px;color:var(--mut);}
+  .empresa a.abrir{display:inline-block;margin-top:13px;font-weight:700;font-size:13.5px;color:var(--link);}
 
-  .cap{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .capgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px;}
-  @media(max-width:760px){.capgrid{grid-template-columns:1fr;}}
-  .capgrid h4{font-size:16px;margin-bottom:4px;}
-  .capgrid p{font-size:14px;color:#475569;}
-
-  footer{background:var(--dark);color:#a7f3d0;padding:34px 0;font-size:13px;}
-  footer .fn{color:#7dd3c0;font-size:12px;margin-top:12px;max-width:760px;}
-  footer a{color:#6ee7b7;}
+  footer{background:var(--vulcan);color:#C9B58A;padding:34px 0;font-size:13px;}
+  footer .brandrow{color:#F4EEE0;font-size:16px;margin-bottom:10px;}
+  footer .fn{color:#9E8C6B;font-size:12px;margin-top:12px;max-width:780px;}
+  footer a{color:var(--canary);}
 </style>
 </head>
 <body>
-<div class="topbar">Holding de produtos financeiros e de análise · uso institucional</div>
+<div class="topbar">Holding of financial &amp; analytics products · institutional use</div>
 
 <header class="hero"><div class="wrap">
-  <div class="brand"><span class="logo"></span> CannyCredit Group</div>
-  <h1>Infraestrutura de <span>decisão e crédito</span> — do mapa global ao motor no Brasil.</h1>
-  <p class="sub">Triagem de crédito em escala mundial e um motor de decisão que diz a cada pessoa quanto dá pra pegar, como e onde — com transparência e método.</p>
-  <div class="pills"><span class="pill">Global + Brasil</span><span class="pill">Comparação · decisão · originação</span><span class="pill">Dados abertos (BACEN)</span></div>
-  <a href="app/simulador.html" class="cta">Ver o app — Credit GPS →</a>
+  <div class="brandrow"><span class="mk" id="mk-hero"></span> CannyCredit Group</div>
+  <div class="wm">
+    <span class="wm-bg" id="wings"></span>
+    <span class="wm-tx">Canny<b>Credit</b></span>
+  </div>
+  <p class="tagline"><b style="color:#EBD9A8">Group</b> — infrastructure for credit decisions, from the global map to the engine on the ground.</p>
+  <div class="pills"><span class="pill">Global + Brazil</span><span class="pill">Compare · decide · originate</span><span class="pill">Open data (BACEN)</span></div>
+  <a href="app/simulador.html" class="cta">See the app — Credit GPS →</a>
 </div></header>
 
 <section><div class="wrap">
-  <div class="eyebrow">Cobertura da plataforma</div>
-  <h2>Os números</h2>
-  <p class="lead">Refletem o que a plataforma já cobre e mapeia — triagem, localização, integrações e produtos.</p>
+  <div class="eyebrow">Platform coverage</div>
+  <h2>The numbers</h2>
+  <p class="lead">They reflect what the platform already covers and maps — screening, localization, integrations and products.</p>
   <div class="stats">
-    <div class="stat"><div class="n" data-count="195">195</div><div class="l">Países triados</div><div class="d">193 membros da ONU + Palestina e Santa Sé</div></div>
-    <div class="stat"><div class="n" data-count="53">53</div><div class="l">Mercados prioritários localizados</div><div class="d">Tier A/B/C, com página por país</div></div>
-    <div class="stat"><div class="n" data-count="35">35</div><div class="l">Idiomas</div><div class="d">do hindi ao árabe (RTL)</div></div>
-    <div class="stat"><div class="n" data-count="24">24</div><div class="l">Redes e parceiros verificados</div><div class="d">programas de afiliado/DSA com fonte pública</div></div>
-    <div class="stat"><div class="n" data-count="20" data-suffix="+">20<small>+</small></div><div class="l">Instituições e APIs de crédito mapeadas (BR)</div><div class="d">marketplaces, BaaS, bancos e redes</div></div>
-    <div class="stat"><div class="n" data-count="5">5</div><div class="l">Produtos de crédito modelados</div><div class="d">pessoal, consignado, FGTS, garantia, portabilidade</div></div>
+    <div class="stat"><div class="n" data-count="195">195</div><div class="l">Countries screened</div><div class="d">193 UN members + Palestine and the Holy See</div></div>
+    <div class="stat"><div class="n" data-count="53">53</div><div class="l">Priority markets localized</div><div class="d">Tier A/B/C, one page per country</div></div>
+    <div class="stat"><div class="n" data-count="35">35</div><div class="l">Languages</div><div class="d">from Hindi to Arabic (RTL)</div></div>
+    <div class="stat"><div class="n" data-count="24">24</div><div class="l">Verified networks &amp; partners</div><div class="d">affiliate/DSA programs with public sources</div></div>
+    <div class="stat"><div class="n" data-count="20" data-suffix="+">20<small>+</small></div><div class="l">Credit institutions &amp; APIs mapped (BR)</div><div class="d">marketplaces, BaaS, banks &amp; networks</div></div>
+    <div class="stat"><div class="n" data-count="5">5</div><div class="l">Credit products modeled</div><div class="d">personal, payroll, FGTS, secured, portability</div></div>
   </div>
-  <p class="lead" style="margin-top:18px">E <b>13 mercados com ofertas ativas</b> hoje, atualizados por rotina diária.</p>
+  <p class="lead" style="margin-top:18px">And <b>13 markets with live offers</b> today, refreshed by a daily routine.</p>
 </div></section>
 
 <section class="cap"><div class="wrap">
-  <div class="eyebrow">O que fazemos</div>
-  <h2>Três camadas, um método</h2>
+  <div class="eyebrow">What we do</div>
+  <h2>Three layers, one method</h2>
   <div class="capgrid">
-    <div><h4>Mapear</h4><p>Triagem global de onde e como operar crédito por parceiros autorizados, país a país, com fonte e data.</p></div>
-    <div><h4>Decidir</h4><p>Motor que estima local e instantaneamente quanto dá pra pegar, otimiza (menor parcela/juros, maior valor) e combina até 3 contratações.</p></div>
-    <div><h4>Originar</h4><p>Cotação com as plataformas parceiras, mantendo o site estático e o dado sensível fora dele.</p></div>
+    <div><div class="ic">🗺️</div><h4>Map</h4><p>Global screening of where and how to operate credit through authorized partners, country by country, with source and date.</p></div>
+    <div><div class="ic">🎯</div><h4>Decide</h4><p>An engine that estimates locally and instantly how much you can raise, optimizes (lowest instalment/interest, highest amount) and combines up to 3 contracts.</p></div>
+    <div><div class="ic">🤝</div><h4>Originate</h4><p>Quotes from partner platforms — keeping the site static and sensitive data off it.</p></div>
   </div>
-</div></div></section>
+</div></section>
 
 <section><div class="wrap">
-  <div class="eyebrow">As empresas do grupo</div>
-  <h2>Uma holding, marcas próprias</h2>
+  <div class="eyebrow">The group's companies</div>
+  <h2>One holding, own brands</h2>
   <div class="empresas">
-    <div class="empresa"><span class="tag">Global</span><h3>CannyCredit</h3><p>Comparador/afiliado de crédito internacional: triagem de 195 países e páginas localizadas nos mercados prioritários.</p><div class="m">53 mercados · 35 idiomas · 24 parceiros</div><a class="abrir" href="global/index.html">Abrir o site global →</a></div>
-    <div class="empresa"><span class="tag">Brasil</span><h3>MelhorEmprestimo</h3><p>Motor de decisão (Credit GPS): quanto dá pra pegar, 3 caminhos ótimos e fluxo de caixa para quem já tem dívidas.</p><div class="m">5 produtos · taxas médias BACEN · sem CPF na estimativa</div><a class="abrir" href="app/simulador.html">Abrir o app →</a></div>
-    <div class="empresa"><span class="tag">Em construção</span><h3>CannyCredit Analytics</h3><p>O braço de dados e scoring: o motor de decisão vira o ativo intelectual do grupo.</p><div class="m">roadmap</div></div>
+    <div class="empresa"><span class="tag">Global</span><h3>CannyCredit</h3><p>International credit comparator/affiliate: 195-country screening and localized pages across the priority markets.</p><div class="m">53 markets · 35 languages · 24 partners</div><a class="abrir" href="global/index.html">Open the global site →</a></div>
+    <div class="empresa"><span class="tag">Brazil</span><h3>MelhorEmprestimo</h3><p>Decision engine (Credit GPS): how much you can raise, 3 optimal paths and cash-flow planning for people who already have debts.</p><div class="m">5 products · BACEN average rates · no ID in the estimate</div><a class="abrir" href="app/simulador.html">Open the app →</a></div>
+    <div class="empresa"><span class="tag soon">In progress</span><h3>CannyCredit Analytics</h3><p>The data &amp; scoring arm: the decision engine becomes the group's intellectual asset.</p><div class="m">roadmap</div></div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <div class="brand" style="font-size:17px"><span class="logo"></span> CannyCredit Group</div>
-  <p class="fn"><b>Sobre os números:</b> refletem a <b>cobertura e o mapeamento</b> da plataforma (países triados, mercados localizados, integrações e produtos mapeados) — não representam volume de clientes, valor emprestado ou receita. Estrutura societária em organização. Crédito é produto regulado; não garantimos aprovação e não é aconselhamento financeiro.</p>
-  <p style="margin-top:14px;color:#7dd3c0">&copy; 2026 CannyCredit Group · uso institucional interno · valide antes de publicar.</p>
+  <div class="brandrow"><span class="mk" id="mk-foot" style="width:26px;height:26px;flex:0 0 26px"></span> CannyCredit Group</div>
+  <p class="fn"><b>About the numbers:</b> they reflect the platform's <b>coverage and mapping</b> (countries screened, markets localized, integrations and products mapped) — not client volume, amount lent or revenue. Corporate structure being organized. Credit is a regulated product; we don't guarantee approval and this is not financial advice.</p>
+  <p style="margin-top:14px;color:#9E8C6B">&copy; 2026 CannyCredit Group · institutional use.</p>
 </div></footer>
+
+<template id="tpl-mark">
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" role="img" aria-label="CannyCredit">
+<circle cx="32" cy="32" r="31.5" fill="#161009"/><circle cx="32" cy="32" r="29" fill="none" stroke="#FFC717" stroke-width="1.4" opacity=".45"/>
+<path d="M12 46 Q31 50.5 52 42.5" fill="none" stroke="#A07B41" stroke-width="3" stroke-linecap="round"/>
+<path d="M44 43.5 q6 -6.5 11 -5 q-4.5 6 -11 5 z" fill="#6F9A4E"/>
+<path d="M13.5 27.5 L25 32 L20.5 39 Z" fill="#E89C00"/>
+<path d="M22 41 C15 40 12 32 17 27 C21 22.5 28 20.5 34 22 C38 23 41 25.5 42.5 28.5 C43.5 30.5 43.5 34 42 36.5 C39.5 40 32 42 26 41.4 Z" fill="#FFC717"/>
+<path d="M32.5 20 q1.5 -3.6 5 -3.4 q-1.2 3 -3.4 4.6 z" fill="#FFC717"/>
+<path d="M24 31 q8.5 -3.5 14 1.5 q-6.5 5.5 -14 2 z" fill="#E89C00"/>
+<path d="M41.5 27.5 L49.5 29.5 L41.5 32 Z" fill="#E8760E"/>
+<circle cx="38.5" cy="27.2" r="1.8" fill="#161009"/><circle cx="39.1" cy="26.6" r=".5" fill="#FBF6EC"/>
+<path d="M28 40.8 l-1 5.2 M33.5 40.6 l1.2 5.4" stroke="#161009" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+</template>
+<template id="tpl-wings">
+<svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+<g fill="currentColor">
+<path d="M110 52 C86 30 54 22 22 26 C48 34 64 44 82 56 C58 52 40 54 24 62 C50 60 78 60 104 56 Z"/>
+<path d="M110 52 C134 30 166 22 198 26 C172 34 156 44 138 56 C162 52 180 54 196 62 C170 60 142 60 116 56 Z"/>
+<ellipse cx="110" cy="56" rx="12" ry="15"/><circle cx="110" cy="40" r="8"/><path d="M110 32 L118 28 L112 24 Z"/>
+</g></svg>
+</template>
 
 <script>
 (function(){
+  var mk=document.getElementById('tpl-mark').innerHTML;
+  document.getElementById('mk-hero').innerHTML=mk;
+  document.getElementById('mk-foot').innerHTML=mk;
+  document.getElementById('wings').innerHTML=document.getElementById('tpl-wings').innerHTML;
   function anim(el){
-    var target=+el.getAttribute('data-count'), suf=el.getAttribute('data-suffix')||'', t0=null, dur=1100;
-    function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur); var e=1-Math.pow(1-p,3);
-      el.textContent=Math.round(target*e); if(p<1) requestAnimationFrame(step); else el.innerHTML=target+(suf?'<small>'+suf+'</small>':''); }
+    var target=+el.getAttribute('data-count'),suf=el.getAttribute('data-suffix')||'',t0=null,dur=1100;
+    function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);var e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e);if(p<1)requestAnimationFrame(step);
+      else el.innerHTML=target+(suf?'<small>'+suf+'</small>':'');}
     requestAnimationFrame(step);
   }
   var els=[].slice.call(document.querySelectorAll('[data-count]'));
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){anim(x.target);io.unobserve(x.target);}});},{threshold:.2});
     els.forEach(function(el){io.observe(el);});
-  } else { els.forEach(anim); }
+  }else{els.forEach(anim);}
 })();
 </script>
 </body>
