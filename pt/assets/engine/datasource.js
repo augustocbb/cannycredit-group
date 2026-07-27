@@ -49,11 +49,15 @@
   function load() {
     if (_injected) return Promise.resolve(_injected);
     if (_cache) return Promise.resolve(_cache);
-    // TODO Supabase: if (_supabaseEnabled()) return loadFromSupabase();
+    // Supabase: tabelas dinâmicas sobrepõem o JSON quando configurado (fallback total ao JSON).
+    var be = (typeof self !== 'undefined' && self.CGPS && self.CGPS.backend) || null;
+    var pTab = be ? be.loadTabelas() : Promise.resolve(null);
     return Promise.all([
-      _loadJson('produtos.json'), _loadJson('parceiros.json'), _loadJson('tabelas.json')
+      _loadJson('produtos.json'), _loadJson('parceiros.json'), _loadJson('tabelas.json'),
+      pTab.catch(function () { return null; })
     ]).then(function (r) {
-      _cache = { produtos: r[0].produtos || r[0], parceiros: r[1].parceiros || r[1], tabelas: r[2] };
+      var tabelas = r[3] || r[2];                 // banco vence; JSON é o fallback
+      _cache = { produtos: r[0].produtos || r[0], parceiros: r[1].parceiros || r[1], tabelas: tabelas };
       return _cache;
     });
   }

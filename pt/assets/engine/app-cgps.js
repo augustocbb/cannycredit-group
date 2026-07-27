@@ -9,7 +9,7 @@
   'use strict';
   var C = window.CGPS || {};
   var F = C.finance, EL = C.eligibility, OPT = C.optimizer, CF = C.cashflow, CAP = C.capacidade,
-      DSRC = C.datasource, ROUTER = C.adaptersRouter;
+      DSRC = C.datasource, ROUTER = C.adaptersRouter, BE = C.backend;
   var CFG = window.MELHOR || {};
   var root = document.getElementById('cgps');
   if (!root || !F || !OPT || !CF || !DSRC) return;
@@ -150,6 +150,7 @@
         btn.classList.remove('cg-busy');
         if (!$('cg-estimativa').querySelector('.cg-warn')) btn.classList.add('cg-done');
       }
+      if (BE && STATE) BE.track('buscar', { objetivo: STATE.obj, produto: STATE.pid, valor: STATE.reqValor, prazo: STATE.reqPrazo });
     }, 420);
   }
 
@@ -253,6 +254,11 @@
   function salvarLead(form) {
     var data = {}; Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.name !== 'empresa') data[el.name] = el.value; });
     var st = STATE || {}; data.objetivo = st.obj; data.valor = st.reqValor; data.page_url = location.href; data.submitted_at = new Date().toISOString();
+    // backend (Supabase): grava o lead no banco com consentimento + UTM; silencioso se off
+    if (BE) BE.saveLead({ nome: data.nome, telefone: data.telefone, email: data.email,
+      objetivo: st.obj, produto: st.pid, valor: st.reqValor, prazo: st.reqPrazo,
+      consentimento: !!(form.querySelector('[name=consentimento]') && form.querySelector('[name=consentimento]').checked) });
+    if (BE) BE.track('cotar', { objetivo: st.obj, produto: st.pid, valor: st.reqValor });
     try { var s = JSON.parse(localStorage.getItem('me_utm') || '{}'); ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { data[k] = s[k] || ''; }); data.referrer = s.referrer || ''; } catch (e) {}
     try { var l = JSON.parse(localStorage.getItem('me_leads') || '[]'); l.push(data); localStorage.setItem('me_leads', JSON.stringify(l)); } catch (e) {}
     try { if (window.fbq && CFG.PIXEL_ID) fbq('track', 'Lead', { content_name: 'cotacao' }); } catch (e) {}

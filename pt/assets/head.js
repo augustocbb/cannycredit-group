@@ -20,9 +20,9 @@ window.MELHOR = {
   EASYCREDITO_LINK: "",     // (A) link parametrizado white-label, ex.: https://.../parceiro?valor={valor}&prazo={prazo}&ref={subid}
   EASYCREDITO_ENDPOINT: "", // (B) endpoint da API de proposta (quando tiver a parceria)
   EASYCREDITO_TOKEN: "",    // (B) token Bearer da API
-  // Supabase (fase 2) — vazio = usa os JSON versionados:
-  SUPABASE_URL: "",
-  SUPABASE_ANON_KEY: ""
+  // Supabase (backend) — ANON_KEY vazio = site 100% estático (JSON/localStorage):
+  SUPABASE_URL: "https://zaqlmjsjaaqgvxrjbsci.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_dc2JNjhKKPeZX4Ua4Hsd8w_78-MRcIt"   // publishable/anon — pública por design
 };
 
 /* Google Tag Manager (base) — só carrega o container se GTM_ID estiver configurado */

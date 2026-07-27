@@ -51,11 +51,14 @@
     var token = cfgGet(cfg, 'EASYCREDITO_TOKEN');
     var link = cfgGet(cfg, 'EASYCREDITO_LINK') || (partner && partner.link_real);
 
-    // (B) modo API
-    if (endpoint && token && typeof fetch === 'function') {
+    // (B) modo API — endpoint pode ser o Worker da Cloudflare (token fica LÁ, não aqui);
+    // token local é opcional (só para chamada direta ao parceiro, se um dia fizer sentido).
+    if (endpoint && typeof fetch === 'function') {
+      var headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
       return fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'Accept': 'application/json' },
+        headers: headers,
         body: JSON.stringify({ produto: req.produtoId, valor: req.valor, prazo: req.prazo, subid: req.subid })
       }).then(function (r) { if (!r.ok) throw new Error('easycredito ' + r.status); return r.json(); })
         .then(function (j) { return mapResposta(j, partner, req); })

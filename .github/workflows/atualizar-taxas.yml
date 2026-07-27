@@ -1,0 +1,38 @@
+# Rotina DIARIA - taxas medias do BACEN (SGS) -> Supabase + fallback JSON do site.
+# Secrets necessarios (Settings -> Secrets and variables -> Actions):
+#   SUPABASE_URL          https://zaqlmjsjaaqgvxrjbsci.supabase.co
+#   SUPABASE_SERVICE_KEY  service_role key do projeto
+name: Atualizar taxas BACEN (diario)
+
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  taxas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Puxar taxas do BACEN e gravar no Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python scripts/atualizar_taxas.py
+      - name: Commitar fallback JSON (se mudou)
+        run: |
+          git config user.name "cannycredit-bot"
+          git config user.email "bot@cannycredit.com"
+          git add pt/dados/tabelas.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanca hoje."
+          else
+            git commit -m "chore(taxas): atualizacao diaria BACEN (SGS)"
+            git push
+          fi
