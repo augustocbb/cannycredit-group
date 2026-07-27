@@ -62,6 +62,7 @@
     var frm = $('cg-cotar-form'); if (frm) frm.hidden = true;
     var g = $('cg-garantia'); if (g) g.hidden = true;
     $('cg-cotacao').innerHTML = ''; setStatus('');
+    var bb = $('cg-buscar'); if (bb) bb.classList.remove('cg-done', 'cg-busy');
   }
 
   // ---- BUSCAR: estimativa ----
@@ -96,6 +97,18 @@
     }
     $('cg-cotar-wrap').hidden = false;
     var gar = $('cg-garantia'); if (gar) gar.hidden = (obj === 'dividas'); // garantias incluíveis após a 1ª simulação
+  }
+
+  // Envolve o buscar: passarinho "pula" (carregando) e depois dá joinha quando os dados entram.
+  function runBuscar(btn) {
+    if (btn) { btn.classList.remove('cg-done'); btn.classList.add('cg-busy'); }
+    setTimeout(function () {
+      buscar();
+      if (btn) {
+        btn.classList.remove('cg-busy');
+        if (!$('cg-estimativa').querySelector('.cg-warn')) btn.classList.add('cg-done');
+      }
+    }, 420);
   }
 
   // ---- render estimativas ----
@@ -149,12 +162,12 @@
 
   // ---- COTAR: infos reais ----
   function cotarReal() {
-    if (!STATE) return;
+    if (!STATE) return Promise.resolve();
     setStatus('Consultando as plataformas…', true);
     var box = $('cg-cotacao'); box.innerHTML = '';
     if (STATE.obj === 'capacidade' && STATE.capResult) {
       var reqs = STATE.capResult.porProduto.filter(function (p) { return p.max > 0; });
-      Promise.all(reqs.map(function (p) {
+      return Promise.all(reqs.map(function (p) {
         return ROUTER.quoteAll({ request: { produtoId: p.id, valor: p.max, prazo: p.prazo, perfil: STATE.pf, subid: subid() }, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG })
           .then(function (offers) { return { p: p, offers: offers || [] }; });
       })).then(function (all) {
@@ -173,7 +186,7 @@
     } else {
       var req = { produtoId: STATE.pid, valor: STATE.reqValor || STATE.valor || STATE.cap * 20, prazo: STATE.reqPrazo || 24, perfil: STATE.pf, subid: subid() };
       var offers = [];
-      ROUTER.quoteAll({ request: req, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG, onResult: function (o) { offers.push(o); renderProposta(offers); } })
+      return ROUTER.quoteAll({ request: req, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG, onResult: function (o) { offers.push(o); renderProposta(offers); } })
         .then(function () { setStatus('Cotação carregada. Compare pelo CET.'); });
     }
   }
@@ -189,7 +202,11 @@
         '<div><div class="k">Recebe</div><div class="v">' + brl(o.approvedAmount) + '</div></div><div class="act">' + acao + '</div></div>';
     }).join('') + '</div>';
   }
-  function setStatus(t, loading) { var e = $('cg-status'); if (e) { e.textContent = t; e.classList.toggle('loading', !!loading); } }
+  function setStatus(t, loading) {
+    var e = $('cg-status'); if (!e) return;
+    e.classList.toggle('loading', !!loading);
+    e.innerHTML = (loading ? '<span class="cg-bird-spin" aria-hidden="true"></span>' : '') + '<span>' + esc(t) + '</span>';
+  }
 
   function salvarLead(form) {
     var data = {}; Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.name !== 'empresa') data[el.name] = el.value; });
@@ -218,8 +235,8 @@
     function outv() { if (o) o.textContent = brl(num('cg-valor')); }
     if (v) v.addEventListener('input', function () { if (vr) vr.value = v.value; outv(); });
     if (vr) vr.addEventListener('input', function () { if (v) v.value = vr.value; outv(); }); outv();
-    $('cg-buscar').addEventListener('click', buscar);
-    $('cg-incluir') && $('cg-incluir').addEventListener('click', buscar); // inclui garantia e recalcula
+    $('cg-buscar').addEventListener('click', function () { runBuscar($('cg-buscar')); });
+    $('cg-incluir') && $('cg-incluir').addEventListener('click', function () { runBuscar($('cg-incluir')); }); // inclui garantia e recalcula
     $('cg-add-divida') && $('cg-add-divida').addEventListener('click', function () { addDivida(); });
     root.addEventListener('click', function (e) { if (e.target.classList && e.target.classList.contains('cg-divdel')) e.target.closest('.cg-divrow').remove(); });
     // cotar: revela o form; o submit carrega as infos
@@ -229,11 +246,14 @@
       e.preventDefault();
       if (frm.querySelector('[name=empresa]') && frm.querySelector('[name=empresa]').value) return;
       if (!frm.checkValidity()) { frm.reportValidity(); return; }
-      salvarLead(frm); cotarReal();
-      frm.querySelector('button[type=submit]').textContent = 'Reenviar / atualizar';
+      var sub = frm.querySelector('button[type=submit]');
+      sub.classList.remove('cg-done'); sub.classList.add('cg-busy');
+      salvarLead(frm);
+      cotarReal().then(function () { sub.classList.remove('cg-busy'); sub.classList.add('cg-done'); sub.textContent = 'Cotação pronta'; });
     });
   }
 
+  var boot0 = $('cg-estimativa'); if (boot0) boot0.innerHTML = '<div class="cg-bootload"><span class="b"></span> Carregando o motor…</div>';
   DSRC.load().then(function (d) { DATA = d; bind(); addDivida(); syncPref(); swapObj('capacidade'); })
     .catch(function (e) { root.innerHTML = '<div class="cg-warn">Não foi possível carregar o motor. Rode o site por um servidor (python -m http.server).</div>'; if (window.console) console.error(e); });
 })();

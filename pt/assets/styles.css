@@ -5,7 +5,7 @@
   --good:#2F7D46;--goodbg:#EAF5EC;--warn:#8A5B12;--warnbg:#FBEFD0;--warnline:#F3D9A6;
 }
 /* logo do canário (mark redonda) como data-URI, reusada em nav e botões */
-:root{--bird:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Ccircle%20cx='32'%20cy='32'%20r='32'%20fill='%23161009'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='29'%20fill='none'%20stroke='%23FFC717'%20stroke-width='1.6'%20opacity='.5'/%3E%3Cpath%20d='M12%2046%20Q31%2050.5%2052%2042.5'%20fill='none'%20stroke='%23A07B41'%20stroke-width='3'%20stroke-linecap='round'/%3E%3Cpath%20d='M44%2043.5%20q6%20-6.5%2011%20-5%20q-4.5%206%20-11%205%20z'%20fill='%236F9A4E'/%3E%3Cpath%20d='M13.5%2027.5%20L25%2032%20L20.5%2039%20Z'%20fill='%23E89C00'/%3E%3Cpath%20d='M22%2041%20C15%2040%2012%2032%2017%2027%20C21%2022.5%2028%2020.5%2034%2022%20C38%2023%2041%2025.5%2042.5%2028.5%20C43.5%2030.5%2043.5%2034%2042%2036.5%20C39.5%2040%2032%2042%2026%2041.4%20Z'%20fill='%23FFC717'/%3E%3Cpath%20d='M32.5%2020%20q1.5%20-3.6%205%20-3.4%20q-1.2%203%20-3.4%204.6%20z'%20fill='%23FFC717'/%3E%3Cpath%20d='M24%2031%20q8.5%20-3.5%2014%201.5%20q-6.5%205.5%20-14%202%20z'%20fill='%23E89C00'/%3E%3Cpath%20d='M41.5%2027.5%20L49.5%2029.5%20L41.5%2032%20Z'%20fill='%23E8760E'/%3E%3Ccircle%20cx='38.5'%20cy='27.2'%20r='1.8'%20fill='%23161009'/%3E%3C/svg%3E");}
+:root{--bird:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Ccircle%20cx='32'%20cy='32'%20r='32'%20fill='%23161009'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='29'%20fill='none'%20stroke='%23FFC717'%20stroke-width='1.6'%20opacity='.5'/%3E%3Cpath%20d='M12%2046%20Q31%2050.5%2052%2042.5'%20fill='none'%20stroke='%23A07B41'%20stroke-width='3'%20stroke-linecap='round'/%3E%3Cpath%20d='M44%2043.5%20q6%20-6.5%2011%20-5%20q-4.5%206%20-11%205%20z'%20fill='%236F9A4E'/%3E%3Cpath%20d='M13.5%2027.5%20L25%2032%20L20.5%2039%20Z'%20fill='%23E89C00'/%3E%3Cpath%20d='M22%2041%20C15%2040%2012%2032%2017%2027%20C21%2022.5%2028%2020.5%2034%2022%20C38%2023%2041%2025.5%2042.5%2028.5%20C43.5%2030.5%2043.5%2034%2042%2036.5%20C39.5%2040%2032%2042%2026%2041.4%20Z'%20fill='%23FFC717'/%3E%3Cpath%20d='M32.5%2020%20q1.5%20-3.6%205%20-3.4%20q-1.2%203%20-3.4%204.6%20z'%20fill='%23FFC717'/%3E%3Cpath%20d='M24%2031%20q8.5%20-3.5%2014%201.5%20q-6.5%205.5%20-14%202%20z'%20fill='%23E89C00'/%3E%3Cpath%20d='M41.5%2027.5%20L49.5%2029.5%20L41.5%2032%20Z'%20fill='%23E8760E'/%3E%3Ccircle%20cx='38.5'%20cy='27.2'%20r='1.8'%20fill='%23161009'/%3E%3C/svg%3E");--bird-ok:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22%23161009%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2229%22%20fill%3D%22none%22%20stroke%3D%22%23FFC717%22%20stroke-width%3D%221.6%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M22%2035%20q-2.5%20-13%204.5%20-14.5%20q4.5%201%203.3%209.5%20l-.8%205%20z%22%20fill%3D%22%23FFC717%22%2F%3E%3Cpath%20d%3D%22M20%2034%20h13%20a4%204%200%200%201%204%204%20v7%20a3.5%203.5%200%200%201%20-3.5%203.5%20h-13%20a3.5%203.5%200%200%201%20-3.5%20-3.5%20v-7.5%20a3.5%203.5%200%200%201%203.5%20-3.5%20z%22%20fill%3D%22%23FFC717%22%2F%3E%3Cpath%20d%3D%22M25%2040%20h9%20M25%2043.5%20h9%20M25%2047%20h9%22%20stroke%3D%22%23161009%22%20stroke-width%3D%221%22%20opacity%3D%22.28%22%2F%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2224%22%20r%3D%226.2%22%20fill%3D%22%23FFC717%22%2F%3E%3Cpath%20d%3D%22M49.5%2023.5%20L56%2025.5%20L49.5%2028%20Z%22%20fill%3D%22%23E8760E%22%2F%3E%3Ccircle%20cx%3D%2245.5%22%20cy%3D%2222.8%22%20r%3D%221.6%22%20fill%3D%22%23161009%22%2F%3E%3Cpath%20d%3D%22M42%2018%20q1.2%20-3%204.2%20-2.8%20q-1%202.6%20-3%204%20z%22%20fill%3D%22%23FFC717%22%2F%3E%3C%2Fsvg%3E");}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;}
 body{color:var(--ink);background:var(--bg);line-height:1.6;}
 a{color:var(--brand);}
@@ -392,3 +392,22 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 .cg-status{font-weight:600;}
 @keyframes cgpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .cg-status.loading{animation:cgpulse 1s ease-in-out infinite;color:var(--brand);}
+
+/* ===== estados com o passarinho: carregando + joinha ===== */
+.btn.cg-busy{cursor:progress;}
+.btn.cg-busy::before{animation:cghop .55s ease-in-out infinite;}
+.btn.cg-done::before{background:var(--bird-ok) center/contain no-repeat;}
+@keyframes cghop{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* status: pássaro com anel girando */
+.cg-status{display:inline-flex;align-items:center;gap:9px;}
+.cg-bird-spin{position:relative;display:inline-block;width:22px;height:22px;flex:0 0 22px;
+  background:var(--bird) center/contain no-repeat;}
+.cg-bird-spin::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;
+  border-top-color:var(--canaryd);animation:cgspin .8s linear infinite;}
+@keyframes cgspin{to{transform:rotate(360deg)}}
+.cg-status.loading{animation:none;color:var(--brand);}
+/* boot loader: motor carregando */
+.cg-bootload{display:flex;align-items:center;gap:13px;justify-content:center;padding:34px 10px;color:var(--muted);font-size:14px;}
+.cg-bootload .b{position:relative;width:42px;height:42px;flex:0 0 42px;background:var(--bird) center/contain no-repeat;}
+.cg-bootload .b::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:3px solid transparent;
+  border-top-color:var(--canaryd);animation:cgspin .8s linear infinite;}
