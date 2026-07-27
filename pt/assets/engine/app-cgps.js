@@ -63,6 +63,7 @@
     var g = $('cg-garantia'); if (g) g.hidden = true;
     $('cg-cotacao').innerHTML = ''; setStatus('');
     var bb = $('cg-buscar'); if (bb) bb.classList.remove('cg-done', 'cg-busy');
+    var capc = $('cg-cap-common'); if (capc) capc.hidden = (o === 'comparar');
   }
 
   // ---- BUSCAR: estimativa ----
@@ -88,6 +89,16 @@
       STATE.cashResult = rc; STATE.pid = barato ? barato.id : (elig[0] || 'pessoal');
       STATE.reqValor = rc.emprestimoMinimo ? rc.emprestimoMinimo.valor : 0; STATE.reqPrazo = barato ? barato.prazo : 24;
       renderCash(rc);
+    } else if (obj === 'comparar') {
+      var ca = val('cg-cmpA'), cb = val('cg-cmpB');
+      var cval = num('cg-cmp-valor'), cpz = parseInt(val('cg-cmp-prazo'), 10) || 24;
+      if (!ca || !cb || ca === cb) { $('cg-estimativa').innerHTML = '<div class="cg-warn">Escolha dois produtos diferentes para comparar.</div>'; return; }
+      var pA = DATA.produtos[ca], pB = DATA.produtos[cb];
+      var lA = F.computeLoan(cval, rateOf(ca), cpz, { iof: pA.iof, sistema: pA.sistema || 'price' });
+      var lB = F.computeLoan(cval, rateOf(cb), cpz, { iof: pB.iof, sistema: pB.sistema || 'price' });
+      STATE.cmp = { a: ca, b: cb, lA: lA, lB: lB };
+      STATE.pid = (lA.totalPago <= lB.totalPago) ? ca : cb; STATE.reqValor = cval; STATE.reqPrazo = cpz;
+      renderCompare(ca, cb, lA, lB, cval, cpz);
     } else {
       var valor = num('cg-valor');
       var alt = OPT.otimizarPrimeiro({ valorDesejado: valor, capacidadeParcela: cap > 0 ? cap : 1e9, produtos: DATA.produtos, tabelas: DATA.tabelas, elegiveis: elig, maxContratos: 3 });
@@ -96,7 +107,38 @@
       renderAlt(alt);
     }
     $('cg-cotar-wrap').hidden = false;
-    var gar = $('cg-garantia'); if (gar) gar.hidden = (obj === 'dividas'); // garantias incluíveis após a 1ª simulação
+    var gar = $('cg-garantia'); if (gar) gar.hidden = (obj === 'dividas' || obj === 'comparar'); // garantias incluíveis após a 1ª simulação
+  }
+
+  // taxa de referência do produto (média BACEN quando houver; senão a mínima do produto)
+  function rateOf(id) { var m = (DATA.tabelas.taxa_media_am) || {}; return m[id] != null ? m[id] : DATA.produtos[id].taxa_min_am; }
+
+  // ---- COMPARAR: dois produtos lado a lado ----
+  function renderCompare(a, b, lA, lB, valor, prazo) {
+    var pA = DATA.produtos[a], pB = DATA.produtos[b];
+    var aWins = lA.totalPago <= lB.totalPago;
+    var diff = Math.abs(lA.totalPago - lB.totalPago);
+    var vencedor = aWins ? pA.label : pB.label;
+    function rowr(k, v, hl) { return '<div class="cg-cmp-row"><span>' + k + '</span><b' + (hl ? ' class="cg-ok"' : '') + '>' + v + '</b></div>'; }
+    function card(p, r, win) {
+      return '<div class="cg-cmp-card' + (win ? ' win' : '') + '">' +
+        (win ? '<span class="cg-cmp-badge">✓ mais barato</span>' : '') +
+        '<div class="cg-cmp-name">' + esc(p.label) + '</div>' +
+        '<div class="cg-cmp-parc"><b>' + brl(r.parcela) + '</b><span>/mês</span></div>' +
+        '<div class="cg-cmp-rows">' +
+        rowr('Taxa', pct(r.taxaMensal, 2) + '/mês') +
+        rowr('CET', pct(r.cetAnual, 1) + '/ano') +
+        rowr('Você recebe', brl(r.recebido)) +
+        rowr('Total pago', brl(r.totalPago), win) +
+        rowr('Custo do crédito', brl(r.custoTotal), win) +
+        '</div></div>';
+    }
+    $('cg-estimativa').innerHTML =
+      '<div class="cg-selo est">Simulação · média BACEN' + freq() + '</div>' +
+      '<div class="cg-cmp-verdict"><b>' + esc(vencedor) + '</b> sai <b>' + brl(diff) + '</b> mais barato no total — ' +
+      brl(valor) + ' em ' + prazo + ' meses, mesmas condições.</div>' +
+      '<div class="cg-cmp-cards">' + card(pA, lA, aWins) + card(pB, lB, !aWins) + '</div>' +
+      '<p class="cg-fine">Mesmo valor e prazo nos dois; taxa média de mercado (a final depende de análise). Não é oferta nem garantia de aprovação.</p>';
   }
 
   // Envolve o buscar: passarinho "pula" (carregando) e depois dá joinha quando os dados entram.
@@ -228,7 +270,22 @@
     box.appendChild(row);
   }
 
+  // Popula os dropdowns de "Comparar 2" a partir dos produtos + dicas de taxa/prazo.
+  function fillCompare() {
+    var A = $('cg-cmpA'), B = $('cg-cmpB'); if (!A || !B) return;
+    var opts = Object.keys(DATA.produtos).map(function (id) { return '<option value="' + id + '">' + esc(DATA.produtos[id].label) + '</option>'; }).join('');
+    A.innerHTML = opts; B.innerHTML = opts;
+    if (DATA.produtos.consignado) A.value = 'consignado';
+    if (DATA.produtos.pessoal) B.value = 'pessoal';
+    function hint(id) { var p = DATA.produtos[id]; return 'taxa média ~' + pct(rateOf(id), 2) + '/mês · ' + p.prazo_min + '–' + p.prazo_max + ' meses'; }
+    function upd() { var ha = $('cg-cmpA-hint'), hb = $('cg-cmpB-hint'); if (ha) ha.textContent = hint(A.value); if (hb) hb.textContent = hint(B.value); }
+    A.addEventListener('change', upd); B.addEventListener('change', upd); upd();
+    var pr = $('cg-cmp-prazo'), out = $('cg-cmp-prazo-out');
+    if (pr && out) pr.addEventListener('input', function () { out.textContent = pr.value + ' meses'; });
+  }
+
   function bind() {
+    fillCompare();
     root.querySelectorAll('.cg-objbtn').forEach(function (b) { b.addEventListener('click', function () { swapObj(b.getAttribute('data-obj')); }); });
     root.querySelectorAll('.cg-opt').forEach(function (b) { b.addEventListener('click', function () { pref = b.getAttribute('data-pref'); syncPref(); }); });
     var v = $('cg-valor'), vr = $('cg-valor-range'), o = $('cg-valor-out');

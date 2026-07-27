@@ -51,11 +51,14 @@
         <button type="button" class="cg-objbtn on" data-obj="capacidade" role="tab">Quanto dá pra pegar?</button>
         <button type="button" class="cg-objbtn" data-obj="valor" role="tab">Quero um valor</button>
         <button type="button" class="cg-objbtn" data-obj="dividas" role="tab">Já tenho dívidas</button>
+        <button type="button" class="cg-objbtn" data-obj="comparar" role="tab">Comparar 2</button>
       </div>
 
-      <!-- comum a todos os objetivos -->
-      <label for="cg-capacidade">Quanto posso pagar por mês</label>
-      <input id="cg-capacidade" type="number" min="0" step="50" value="800" inputmode="numeric">
+      <!-- comum (não usado em "comparar") -->
+      <div id="cg-cap-common">
+        <label for="cg-capacidade">Quanto posso pagar por mês</label>
+        <input id="cg-capacidade" type="number" min="0" step="50" value="800" inputmode="numeric">
+      </div>
 
       <!-- QUADRO: quanto dá pra pegar -->
       <div class="cg-quadro" data-obj="capacidade">
@@ -82,6 +85,28 @@
         <p class="cg-fine">Liste as dívidas: saldo, importância e por quantos meses dá pra segurar cada uma.</p>
         <div id="cg-dividas"></div>
         <button type="button" id="cg-add-divida" class="btn ghost small">+ adicionar dívida</button>
+      </div>
+
+      <!-- QUADRO: comparar 2 produtos -->
+      <div class="cg-quadro" data-obj="comparar" hidden>
+        <div class="cg-cmp-pick">
+          <div class="cg-cmp-field">
+            <label for="cg-cmpA">Produto A</label>
+            <select id="cg-cmpA" class="cg-cmp-sel" aria-label="Produto A"></select>
+            <span class="cg-cmp-hint" id="cg-cmpA-hint"></span>
+          </div>
+          <span class="cg-cmp-vs">vs</span>
+          <div class="cg-cmp-field">
+            <label for="cg-cmpB">Produto B</label>
+            <select id="cg-cmpB" class="cg-cmp-sel" aria-label="Produto B"></select>
+            <span class="cg-cmp-hint" id="cg-cmpB-hint"></span>
+          </div>
+        </div>
+        <label for="cg-cmp-valor">Valor a simular</label>
+        <input id="cg-cmp-valor" type="number" min="500" step="500" value="10000" inputmode="numeric">
+        <label for="cg-cmp-prazo">Prazo: <b id="cg-cmp-prazo-out" class="rangeval">24 meses</b></label>
+        <input id="cg-cmp-prazo" type="range" min="6" max="96" step="6" value="24" aria-label="Prazo em meses">
+        <p class="cg-fine">Escolha dois produtos e veja parcela, CET e total lado a lado — com a média BACEN.</p>
       </div>
 
       <!-- perfil (comum, recolhível) -->
