@@ -5,7 +5,7 @@
    ============================================================ */
 window.MELHOR = {
   PIXEL_ID: "",       // Meta Pixel ID -> PageView / Lead / InitiateCheckout
-  GTM_ID: "",         // Google Tag Manager (formato GTM-XXXXXXX) — ativa o container
+  GTM_ID: "GTM-MHVM8VCW",  // container "cannycredit.com" (conta GTM CannyCredit Group, 2026-07-29)
   FORM_ENDPOINT: "",  // URL que recebe o POST do formulário (Formspree / Google Forms / Tally)
   WHATSAPP: "",       // (opcional) número só dígitos, ex.: "5531999999999" para botão de contato
 
