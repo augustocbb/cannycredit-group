@@ -1,5 +1,5 @@
 /* ============================================================
-   MelhorEmprestimo — configuração + Pixel + captura de UTM (no <head>).
+   CannyCredit — configuração + Pixel + captura de UTM (no <head>).
    FREE-FIRST: com os campos vazios, tudo vira no-op (nada quebra).
    Edite SÓ este arquivo para ativar em todas as páginas.
    ============================================================ */
@@ -11,7 +11,7 @@ window.MELHOR = {
 
   // ---- Identidade do grupo (para o rollup no GA4) ----
   GROUP: "CannyCredit Group",
-  BRAND: "MelhorEmprestimo",
+  BRAND: "CannyCredit",
   MARKET: "BR",
 
   // ---- Credit GPS (motor de decisão) ----

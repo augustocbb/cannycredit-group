@@ -56,12 +56,46 @@
       utm_source: s.utm_source || null, utm_medium: s.utm_medium || null,
       utm_campaign: s.utm_campaign || null, utm_content: s.utm_content || null, utm_term: s.utm_term || null,
       referrer: s.referrer || null, page_url: (typeof location !== 'undefined' ? location.href : null),
+      // LGPD: o booleano sozinho não prova nada — não diz A QUÊ a pessoa consentiu.
+      // Gravamos também a versão, o ato (clique/checkbox) e o texto exato que estava
+      // na tela, vindos de CGPS.consent. A RLS recusa lead sem consent_versao.
       consentimento: !!data.consentimento,
-      brand: c.BRAND || 'MelhorEmprestimo', market: c.MARKET || 'BR',
+      consent_versao: data.consent_versao || null,
+      consent_metodo: data.consent_metodo || null,
+      consent_texto: data.consent_texto || null,
+      brand: c.BRAND || 'CannyCredit', market: c.MARKET || 'BR',
       extra: data.extra || null
     };
     return sbFetch('leads', { method: 'POST', body: row, headers: { 'Prefer': 'return=minimal' } })
       .catch(function (e) { if (window.console) console.warn('lead: não gravado no backend', e); return null; });
+  }
+
+  /**
+   * Pedido de direito do titular (LGPD art. 18) -> public.solicitacoes_titular.
+   *
+   * Ao contrário de saveLead e track, este NÃO engole o erro: a página precisa de
+   * saber se falhou. Um pedido de revogação que se perde em silêncio deixa a pessoa
+   * a acreditar que exerceu um direito que continua por exercer — e o prazo de 15
+   * dias corre contra nós na mesma. Devolve null em falha, e a página mostra o erro.
+   */
+  function saveSolicitacao(dados) {
+    if (!enabled()) return Promise.resolve(null);
+    var c = cfg();
+    return sbFetch('solicitacoes_titular', {
+      method: 'POST',
+      headers: { 'Prefer': 'return=minimal' },
+      body: {
+        tipo: dados.tipo,
+        contato: String(dados.contato || '').slice(0, 200),
+        nome: dados.nome || null,
+        mensagem: dados.mensagem ? String(dados.mensagem).slice(0, 2000) : null,
+        brand: c.BRAND || 'CannyCredit', market: c.MARKET || 'BR'
+      }
+    }).then(function () { return true; })
+      .catch(function (e) {
+        if (window.console) console.warn('solicitacao do titular: nao gravada', e);
+        return null;
+      });
   }
 
   // evento de funil (buscar/cotar/offer_click...); silencioso, nunca trava
@@ -101,5 +135,6 @@
       .catch(function () { return null; });
   }
 
-  return { enabled: enabled, saveLead: saveLead, track: track, loadTabelas: loadTabelas, loadOfertas: loadOfertas, _sbFetch: sbFetch };
+  return { enabled: enabled, saveLead: saveLead, saveSolicitacao: saveSolicitacao, track: track,
+           loadTabelas: loadTabelas, loadOfertas: loadOfertas, _sbFetch: sbFetch };
 });

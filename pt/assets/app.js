@@ -1,5 +1,5 @@
 /* ============================================================
-   MelhorEmprestimo — simulador (Tabela Price), comparação de ofertas
+   CannyCredit — simulador (Tabela Price), comparação de ofertas
    e formulário de lead. Guardado por presença de elementos, então o
    mesmo arquivo serve todas as páginas.
 
@@ -130,6 +130,27 @@
       var fd=new FormData(f);
       var data=Object.fromEntries(fd.entries()); delete data.empresa;
       try{ var leads=JSON.parse(localStorage.getItem('me_leads')||'[]'); leads.push(data); localStorage.setItem('me_leads', JSON.stringify(leads)); }catch(_){}
+
+      // Supabase: mesma gravação que o simulador.html já fazia. Sem isto, o lead destas
+      // páginas ficava só no localStorage do próprio visitante — ou seja, perdido, já que
+      // FORM_ENDPOINT está vazio. O backend é free-first: sem SUPABASE_URL/KEY vira no-op.
+      var BE = (window.CGPS && window.CGPS.backend) || null;
+      var CONSENT = (window.CGPS && window.CGPS.consent) || null;
+      if(BE){
+        try{
+          // Aqui o ato de consentir é a caixa marcada (não o clique no botão, como
+          // no simulador) — por isso o método e o texto são os do checkbox.
+          var aceito = !!(f.querySelector('[name="consentimento"]') || {}).checked;
+          var reg = CONSENT ? CONSENT.registro('checkbox_form_lead', aceito) : { consentimento: aceito };
+          BE.saveLead({
+            nome: data.nome, telefone: data.telefone, email: data.email,
+            produto: data.finalidade_sel || data.finalidade || null,
+            valor: data.valor, prazo: data.prazo,
+            consentimento: reg.consentimento, consent_versao: reg.consent_versao,
+            consent_metodo: reg.consent_metodo, consent_texto: reg.consent_texto
+          });
+        }catch(_){}
+      }
 
       bcTrack('Lead', {content_name:'solicitacao_credito'});
 

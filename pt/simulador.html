@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Credit GPS — quanto dá pra pegar | MelhorEmprestimo</title>
+<title>Credit GPS — quanto dá pra pegar | CannyCredit</title>
 <meta name="description" content="Escolha o objetivo, clique em Buscar (estimativa com taxas médias BACEN) e Cote com informações. Sem CPF, sem pagar nada adiantado.">
-<link rel="canonical" href="https://melhoremprestimo.com.br/simulador.html">
+<link rel="canonical" href="https://augustocbb.github.io/cannycredit-group/pt/simulador.html">
 <link rel="icon" href="assets/favicon.svg">
 <meta name="theme-color" content="#0F766E">
 <meta name="robots" content="noindex,follow">
@@ -19,7 +19,7 @@
 <div class="topbar">100% gratuito · <b>Nunca cobramos adiantado</b> · Não pedimos CPF</div>
 
 <nav class="nav"><div class="wrap navrow">
-  <a href="index.html" class="brand"><span class="logo"></span> MelhorEmprestimo</a>
+  <a href="index.html" class="brand"><span class="logo"></span> CannyCredit</a>
   <button class="navtoggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks"><span></span></button>
   <div class="navlinks" id="navlinks">
     <a href="index.html">Início</a><a href="simulador.html">Simular</a>
@@ -33,7 +33,7 @@
       <span class="wings"><svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g fill="currentColor"><path d="M110 52 C86 30 54 22 22 26 C48 34 64 44 82 56 C58 52 40 54 24 62 C50 60 78 60 104 56 Z"/><path d="M110 52 C134 30 166 22 198 26 C172 34 156 44 138 56 C162 52 180 54 196 62 C170 60 142 60 116 56 Z"/><ellipse cx="110" cy="56" rx="12" ry="15"/><circle cx="110" cy="40" r="8"/><path d="M110 32 L118 28 L112 24 Z"/></g></svg></span>
       <span class="tx">Canny<b>Credit</b></span>
     </div>
-    <div class="hero-loc">MelhorEmprestimo · Brasil · pt-BR</div>
+    <div class="hero-loc">CannyCredit · Brasil · pt-BR</div>
     <span class="hero-chip">⚡ Credit GPS · motor de decisão</span>
     <h1 class="hero-h1">Descubra <span>quanto dá pra pegar</span> — e a forma mais barata.</h1>
     <p class="hero-sub">Estimativa na hora com as taxas médias do Banco Central. Escolha o objetivo, veja os números e só então cote com as instituições. Não pedimos CPF nesta etapa.</p>
@@ -160,15 +160,19 @@
       <div id="cg-cotar-wrap" hidden>
         <button id="cg-cotar" class="btn cg-cta" type="button">Cotar com informações →</button>
         <form id="cg-cotar-form" hidden novalidate>
-          <p class="cg-fine">Sem CPF. Enviamos a uma instituição parceira autorizada, que confirma e ajusta.</p>
+          <p class="cg-fine">Sem CPF. Sua estimativa é confirmada por instituições parceiras autorizadas.</p>
           <input required name="nome" placeholder="Nome completo" autocomplete="name" type="text">
           <div class="row2">
             <input required name="telefone" placeholder="WhatsApp / telefone" autocomplete="tel" type="tel" inputmode="tel">
             <input required name="email" placeholder="E-mail" autocomplete="email" type="email">
           </div>
           <input type="text" name="empresa" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <label class="cg-consent"><input required type="checkbox" name="consentimento"> Autorizo o contato e o compartilhamento dos meus dados com instituições parceiras, conforme a <a href="privacidade.html">Política de Privacidade</a>.</label>
           <button class="btn cg-cta" type="submit">Cotar agora</button>
+          <!-- O consentimento é o próprio clique no botão acima. O texto é injetado
+               por app-cgps.js a partir de CGPS.consent, que é a mesma constante
+               gravada com o lead — não escrever o texto aqui à mão, senão a tela e
+               o registro divergem. -->
+          <p id="cg-consent-txt" class="cg-consent-fine"></p>
         </form>
         <span id="cg-status" class="cg-status"></span>
         <div id="cg-cotacao" aria-live="polite"></div>
@@ -181,13 +185,13 @@
 </section>
 
 <footer><div class="wrap">
-  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> MelhorEmprestimo</div>
+  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> CannyCredit</div>
   Comparador de crédito — não somos instituição financeira e não garantimos aprovação. Empréstimo tem custo: avalie o CET. Não pague nada adiantado.
   <div class="legallinks">
     <a href="sobre.html">Sobre</a> · <a href="termos.html">Termos</a> ·
     <a href="privacidade.html">Privacidade (LGPD)</a> · <a href="seguranca.html">Segurança e CET</a>
   </div>
-  &copy; 2026 MelhorEmprestimo · CannyCredit Group.
+  &copy; 2026 CannyCredit · CannyCredit Group.
 </div></footer>
 
 <script src="assets/engine/finance.js"></script>
@@ -198,6 +202,7 @@
 <script src="assets/engine/optimizer.js"></script>
 <script src="assets/engine/cashflow.js"></script>
 <script src="assets/engine/capacidade.js"></script>
+<script src="assets/engine/consent.js"></script>
 <script src="assets/engine/backend.js"></script>
 <script src="assets/engine/datasource.js"></script>
 <script src="assets/engine/adapters/mock.js"></script>

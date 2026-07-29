@@ -9,11 +9,18 @@
   'use strict';
   var C = window.CGPS || {};
   var F = C.finance, EL = C.eligibility, OPT = C.optimizer, CF = C.cashflow, CAP = C.capacidade,
-      DSRC = C.datasource, ROUTER = C.adaptersRouter, BE = C.backend;
+      DSRC = C.datasource, ROUTER = C.adaptersRouter, BE = C.backend, CONSENT = C.consent;
   var CFG = window.MELHOR || {};
   var root = document.getElementById('cgps');
   if (!root || !F || !OPT || !CF || !DSRC) return;
   var DATA = null, STATE = null, obj = 'capacidade', pref = 'menor_juros';
+  // O ato de consentir nesta tela é o clique no "Cotar agora" (não há checkbox).
+  var METODO_CONSENT = 'clique_botao_cotar';
+  // Produto de entrada: pessoal sem garantia. Ciclo mais curto — é o único que vai
+  // para cotação real; os outros continuam disponíveis como estimativa, porque
+  // capacidade.js e cashflow.js precisam de ver todas as modalidades para calcular
+  // teto combinado e troca de dívida.
+  var PRODUTO_FOCO = 'pessoal';
 
   function $(id) { return document.getElementById(id); }
   function num(id) { var e = $(id); return e ? parseFloat(e.value) || 0 : 0; }
@@ -209,7 +216,10 @@
     setStatus('Consultando as plataformas…', true);
     var box = $('cg-cotacao'); box.innerHTML = '';
     if (STATE.obj === 'capacidade' && STATE.capResult) {
-      var reqs = STATE.capResult.porProduto.filter(function (p) { return p.max > 0; });
+      // Só o produto-foco vai para cotação real. Os outros continuam a aparecer na
+      // estimativa (o teto combinado depende deles), mas não geram lead: cada
+      // modalidade extra é um ciclo de aprovação mais longo, e a v1 optou pelo curto.
+      var reqs = STATE.capResult.porProduto.filter(function (p) { return p.max > 0 && p.id === PRODUTO_FOCO; });
       return Promise.all(reqs.map(function (p) {
         return ROUTER.quoteAll({ request: { produtoId: p.id, valor: p.max, prazo: p.prazo, perfil: STATE.pf, subid: subid() }, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG })
           .then(function (offers) { return { p: p, offers: offers || [] }; });
@@ -222,20 +232,42 @@
             .map(function (o) { return '<div class="cg-plat-row"><span>' + esc(o.bank) + '</span><span>' + brl(o.approvedAmount) + ' · CET ' + pct(o.CET, 1) + (o.prob != null ? ' · aprov ~' + pct(o.prob, 0) : '') + '</span></div>'; }).join('');
           blocos.push('<div class="cg-plat-prod"><div class="cg-plat-h">' + esc(x.p.label) + ' — até <b>' + brl(best) + '</b></div>' + rows + '</div>');
         });
+        // Quais modalidades tinham teto na estimativa mas ficaram de fora da cotação.
+        // Sem isto o utilizador vê menos linhas do que na estimativa e não sabe porquê.
+        var deFora = STATE.capResult.porProduto
+          .filter(function (p) { return p.max > 0 && p.id !== PRODUTO_FOCO; })
+          .map(function (p) { return (DATA.produtos[p.id] || {}).label || p.id; });
+        var varias = deFora.length > 1;
+        var nota = deFora.length
+          ? '<p class="cg-fine">Cotamos ' + esc((DATA.produtos[PRODUTO_FOCO] || {}).label || PRODUTO_FOCO).toLowerCase() +
+            '. ' + esc(deFora.join(', ')) + (varias ? ' continuam' : ' continua') +
+            ' acima como estimativa — ainda não cotamos ' + (varias ? 'essas modalidades' : 'essa modalidade') + '.</p>'
+          : '';
         box.innerHTML = '<div class="cg-selo conf">Disponível hoje nas plataformas</div>' +
-          '<div class="cg-captotal conf"><span>Somando as modalidades</span><b>' + brl(total) + '</b></div>' + (blocos.join('') || '<p class="cg-fine">Sem retorno agora.</p>');
+          '<div class="cg-captotal conf"><span>Somando as modalidades</span><b>' + brl(total) + '</b></div>' +
+          (blocos.join('') || '<p class="cg-fine">Sem retorno agora.</p>') + nota;
         setStatus('Cotação carregada. Compare pelo CET.');
       });
     } else {
-      var req = { produtoId: STATE.pid, valor: STATE.reqValor || STATE.valor || STATE.cap * 20, prazo: STATE.reqPrazo || 24, perfil: STATE.pf, subid: subid() };
+      // A cotação real cobre o produto-foco. Se a melhor estimativa da pessoa foi
+      // outra modalidade, cotamos pessoal na mesma (senão ela sairia sem nenhuma
+      // proposta) e dizemos qual estimativa fica de fora — sem fingir que a
+      // estimativa do consignado virou proposta.
+      var outroProduto = STATE.pid !== PRODUTO_FOCO ? STATE.pid : null;
+      var req = { produtoId: PRODUTO_FOCO, valor: STATE.reqValor || STATE.valor || STATE.cap * 20, prazo: STATE.reqPrazo || 24, perfil: STATE.pf, subid: subid() };
       var offers = [];
-      return ROUTER.quoteAll({ request: req, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG, onResult: function (o) { offers.push(o); renderProposta(offers); } })
+      return ROUTER.quoteAll({ request: req, parceiros: DATA.parceiros, produtos: DATA.produtos, cfg: CFG, onResult: function (o) { offers.push(o); renderProposta(offers, outroProduto); } })
         .then(function () { setStatus('Cotação carregada. Compare pelo CET.'); });
     }
   }
-  function renderProposta(offers) {
+  function renderProposta(offers, outroProduto) {
     var arr = offers.slice().sort(function (a, b) { return a.installmentValue - b.installmentValue; }), best = arr[0];
-    $('cg-cotacao').innerHTML = '<div class="cg-selo conf">Ofertas disponíveis</div><div class="ofertas">' + arr.map(function (o) {
+    var nota = outroProduto && DATA.produtos[outroProduto]
+      ? '<p class="cg-fine">Estas propostas são de ' + esc(DATA.produtos[PRODUTO_FOCO].label).toLowerCase() +
+        '. Sua estimativa de ' + esc(DATA.produtos[outroProduto].label).toLowerCase() +
+        ' continua acima, como estimativa — ainda não cotamos essa modalidade.</p>'
+      : '';
+    $('cg-cotacao').innerHTML = '<div class="cg-selo conf">Ofertas disponíveis</div>' + nota + '<div class="ofertas">' + arr.map(function (o) {
       var isBest = best && o.partnerId === best.partnerId;
       var realLink = (o.handoff || o.source === 'easycredito') && o.affiliateLink && o.affiliateLink.indexOf('go/') !== 0;
       var acao = realLink ? '<a class="btn small" href="' + esc(o.affiliateLink) + '" target="_blank" rel="noopener nofollow">Ir ao parceiro ↗</a>' : '<span class="cg-fine">a instituição vai te contatar</span>';
@@ -251,14 +283,42 @@
     e.innerHTML = (loading ? '<span class="cg-bird-spin" aria-hidden="true"></span>' : '') + '<span>' + esc(t) + '</span>';
   }
 
+  /** Injeta o texto de consentimento sob o botão, a partir da fonte única. */
+  function renderConsentimento() {
+    var alvo = $('cg-consent-txt');
+    if (!alvo || !CONSENT) return;
+    // O texto consentido vem primeiro e sozinho — é ele que é gravado. O complemento e
+    // os links são informação de apoio, renderizados a seguir, e por isso não entram no
+    // registro: o que a pessoa autorizou não muda porque mudámos um link.
+    alvo.textContent = CONSENT.texto(METODO_CONSENT) + ' ' + CONSENT.complemento() + ' ';
+    var a = document.createElement('a');
+    a.href = 'direitos.html'; a.textContent = 'Seus direitos sobre os dados';
+    alvo.appendChild(a);
+    alvo.appendChild(document.createTextNode(' · '));
+    var b = document.createElement('a');
+    b.href = 'privacidade.html'; b.textContent = 'Política de Privacidade';
+    alvo.appendChild(b);
+  }
+
   function salvarLead(form) {
     var data = {}; Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.name !== 'empresa') data[el.name] = el.value; });
     var st = STATE || {}; data.objetivo = st.obj; data.valor = st.reqValor; data.page_url = location.href; data.submitted_at = new Date().toISOString();
-    // backend (Supabase): grava o lead no banco com consentimento + UTM; silencioso se off
+    // O consentimento aqui é o próprio submit: o botão é "Cotar agora" e o texto
+    // acima dele descreve o compartilhamento. Só é `true` porque houve o clique —
+    // se o form pudesse ser submetido de outra forma, isto teria de ser revisto.
+    var reg = CONSENT ? CONSENT.registro(METODO_CONSENT, true) : { consentimento: true };
+    // backend (Supabase): grava o lead com o registro de consentimento + UTM; silencioso se off
+    // `produto` é o que foi REALMENTE cotado (e o que será distribuído), não a
+    // modalidade que ganhou a estimativa. Desde que a cotação real passou a cobrir
+    // só o produto-foco, os dois podem divergir — gravar st.pid aqui rotularia o
+    // lead como "consignado" quando o que se pediu ao parceiro foi pessoal.
+    // A estimativa fica em `extra`, que é onde ela é contexto e não promessa.
     if (BE) BE.saveLead({ nome: data.nome, telefone: data.telefone, email: data.email,
-      objetivo: st.obj, produto: st.pid, valor: st.reqValor, prazo: st.reqPrazo,
-      consentimento: !!(form.querySelector('[name=consentimento]') && form.querySelector('[name=consentimento]').checked) });
-    if (BE) BE.track('cotar', { objetivo: st.obj, produto: st.pid, valor: st.reqValor });
+      objetivo: st.obj, produto: PRODUTO_FOCO, valor: st.reqValor, prazo: st.reqPrazo,
+      consentimento: reg.consentimento, consent_versao: reg.consent_versao,
+      consent_metodo: reg.consent_metodo, consent_texto: reg.consent_texto,
+      extra: { produto_estimado: st.pid || null } });
+    if (BE) BE.track('cotar', { objetivo: st.obj, produto: PRODUTO_FOCO, produto_estimado: st.pid, valor: st.reqValor });
     try { var s = JSON.parse(localStorage.getItem('me_utm') || '{}'); ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { data[k] = s[k] || ''; }); data.referrer = s.referrer || ''; } catch (e) {}
     try { var l = JSON.parse(localStorage.getItem('me_leads') || '[]'); l.push(data); localStorage.setItem('me_leads', JSON.stringify(l)); } catch (e) {}
     try { if (window.fbq && CFG.PIXEL_ID) fbq('track', 'Lead', { content_name: 'cotacao' }); } catch (e) {}
@@ -292,6 +352,7 @@
 
   function bind() {
     fillCompare();
+    renderConsentimento();
     root.querySelectorAll('.cg-objbtn').forEach(function (b) { b.addEventListener('click', function () { swapObj(b.getAttribute('data-obj')); }); });
     root.querySelectorAll('.cg-opt').forEach(function (b) { b.addEventListener('click', function () { pref = b.getAttribute('data-pref'); syncPref(); }); });
     var v = $('cg-valor'), vr = $('cg-valor-range'), o = $('cg-valor-out');

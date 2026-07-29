@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Exerça seus direitos de titular de dados (LGPD art. 18): revogar consentimento, acessar, corrigir ou eliminar seus dados.">
+<title>Seus direitos sobre os dados (LGPD) — CannyCredit</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0F766E">
+<!-- noindex: e' um canal de atendimento, nao conteudo para busca. -->
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/head.js"></script>
+</head>
+<body>
+<div class="topbar">100% gratuito para você · <b>Nunca cobramos nada adiantado</b> para liberar crédito · Comparador — não somos banco</div>
+
+<nav class="nav"><div class="wrap navrow">
+  <a href="index.html" class="brand"><span class="logo"></span> CannyCredit</a>
+  <button class="navtoggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks"><span></span></button>
+  <div class="navlinks" id="navlinks">
+    <a href="index.html">Início</a>
+    <a href="index.html#produtos">Produtos</a>
+    <a href="simulador.html">Simular</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="seguranca.html">Segurança</a>
+    <a href="privacidade.html">Privacidade</a>
+  </div>
+</div></nav>
+
+<div class="wrap"><div class="legal">
+  <h1>Seus direitos sobre os seus dados</h1>
+  <p class="updated">Lei nº 13.709/2018 (LGPD), art. 18.</p>
+
+  <p>Se você pediu uma cotação aqui, os seus dados de contato podem ter sido enviados a
+  instituições parceiras para que elas apresentem propostas. Você pode pedir para reverter
+  isso, ou qualquer outro direito abaixo, a qualquer momento e sem custo.</p>
+
+  <p><b>Revogar o consentimento</b> interrompe novos envios. As instituições que já
+  receberam os seus dados são comunicadas do pedido — mas elas são controladoras
+  independentes a partir daí, e o tratamento que já fizeram segue as políticas delas.
+  Dizemos isto de forma explícita porque é a limitação real do que podemos garantir.</p>
+
+  <form id="direitosForm" class="lead" novalidate>
+    <label for="d-tipo">O que você quer pedir</label>
+    <select id="d-tipo" name="tipo" required>
+      <option value="revogacao">Revogar o consentimento (parar de compartilhar)</option>
+      <option value="acesso">Acessar os dados que vocês têm sobre mim</option>
+      <option value="correcao">Corrigir um dado errado</option>
+      <option value="eliminacao">Eliminar os meus dados</option>
+      <option value="portabilidade">Portabilidade dos dados</option>
+      <option value="compartilhamento">Saber com quem os meus dados foram compartilhados</option>
+    </select>
+
+    <label for="d-contato">E-mail ou telefone que você usou</label>
+    <input id="d-contato" name="contato" type="text" required
+           placeholder="o mesmo que você informou ao pedir a cotação" autocomplete="email">
+    <p class="cg-fine">Precisamos dele só para localizar o seu registro. Não peça por outro
+    canal com dados que não sejam seus.</p>
+
+    <label for="d-nome">Nome (opcional)</label>
+    <input id="d-nome" name="nome" type="text" autocomplete="name">
+
+    <label for="d-msg">Detalhe (opcional)</label>
+    <textarea id="d-msg" name="mensagem" rows="3" placeholder="Se for correção, diga o que está errado."></textarea>
+
+    <!-- honeypot -->
+    <input type="text" name="empresa" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+    <button class="btn alt" type="submit" style="width:100%;margin-top:16px;">Enviar pedido</button>
+    <p class="cg-consent-fine">Respondemos em até 15 dias. Enviar este pedido não cria conta
+    nem cadastro — usamos o contato apenas para localizar o seu registro e responder.</p>
+  </form>
+
+  <div id="d-ok" class="note" hidden>
+    <b>Pedido registrado.</b> Vamos responder pelo contato informado em até 15 dias.
+  </div>
+  <div id="d-erro" class="note" hidden>
+    <b>Não conseguimos registrar agora.</b> Tente de novo em alguns minutos. Se persistir,
+    fale conosco pelos canais da <a href="privacidade.html">Política de Privacidade</a>.
+  </div>
+
+  <h2>O que acontece depois</h2>
+  <p>O pedido entra numa fila que é revisada por uma pessoa. Não há decisão automatizada
+  aqui. Se o pedido for de eliminação e houver obrigação legal de reter algum dado
+  (por exemplo, registro de uma operação já contratada com um parceiro), dizemos qual e
+  por quanto tempo, em vez de eliminar em silêncio.</p>
+</div></div>
+
+<footer><div class="wrap">
+  <div class="brand" style="color:#fff;margin-bottom:8px;"><span class="logo"></span> CannyCredit</div>
+  Comparador de crédito — não somos instituição financeira e não garantimos aprovação.
+  <div class="legallinks">
+    <a href="sobre.html">Sobre</a> · <a href="termos.html">Termos</a> ·
+    <a href="privacidade.html">Privacidade</a> · <a href="seguranca.html">Segurança</a>
+  </div>
+</div></footer>
+
+<script src="assets/engine/consent.js"></script>
+<script src="assets/engine/backend.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var f = document.getElementById('direitosForm');
+  if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (f.querySelector('[name=empresa]').value) return;   // honeypot
+    var BE = (window.CGPS && window.CGPS.backend) || null;
+    var dados = {
+      tipo: f.tipo.value,
+      contato: (f.contato.value || '').trim(),
+      nome: (f.nome.value || '').trim() || null,
+      mensagem: (f.mensagem.value || '').trim() || null
+    };
+    if (dados.contato.length < 5) { f.contato.focus(); return; }
+
+    function mostrar(okEl) {
+      document.getElementById('d-ok').hidden = okEl !== 'ok';
+      document.getElementById('d-erro').hidden = okEl === 'ok';
+      if (okEl === 'ok') f.hidden = true;
+    }
+    // Sem backend configurado nao fingimos sucesso: um pedido de direito que se perde
+    // em silencio e' pior do que um erro visivel, porque a pessoa fica a achar que
+    // exerceu o direito.
+    if (!BE || !BE.saveSolicitacao) { mostrar('erro'); return; }
+    BE.saveSolicitacao(dados).then(function (r) {
+      mostrar(r === null ? 'erro' : 'ok');
+    }).catch(function () { mostrar('erro'); });
+  });
+})();
+</script>
+</body>
+</html>
