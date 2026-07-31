@@ -20,8 +20,8 @@
     }
   },
   "taxa_media_am": {
-    "pessoal": 0.0681,
-    "consignado": 0.0182,
+    "pessoal": 0.0708,
+    "consignado": 0.0183,
     "fgts": 0.017,
     "garantia": 0.018,
     "portabilidade": 0.025
@@ -32,6 +32,6 @@
     "pix_parcelado": 0.09,
     "cartao_parcelado": 0.065
   },
-  "atualizado_em": "2026-07-30",
+  "atualizado_em": "2026-07-31",
   "fonte_taxas": "BACEN SGS (api.bcb.gov.br) — séries 25464, 25468"
 }
