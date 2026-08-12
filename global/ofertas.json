@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "count": 14,
+  "count": 13,
   "gerado_por": "gerar.py"
  },
  "offers": [
@@ -19,88 +19,74 @@
    "go": "go/pl-feniko-mylead.html"
   },
   {
-   "id": "kz-leadgid-6620",
+   "id": "kz-leadgid-5394",
    "pais": "KZ",
    "rede": "LeadGid",
-   "parceiro": "Finlite",
+   "parceiro": "Kviku",
    "produto": "personal_loan",
-   "titulo": "Finlite",
+   "titulo": "Kviku",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "Top",
-   "go": "go/kz-leadgid-6620.html"
+   "go": "go/kz-leadgid-5394.html"
   },
   {
-   "id": "mx-leadgid-6599",
+   "id": "mx-leadgid-7085",
    "pais": "MX",
    "rede": "LeadGid",
-   "parceiro": "Moneyman",
+   "parceiro": "Loaney",
    "produto": "microfinance",
-   "titulo": "Moneyman",
+   "titulo": "Loaney",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "Top",
-   "go": "go/mx-leadgid-6599.html"
+   "go": "go/mx-leadgid-7085.html"
   },
   {
-   "id": "pl-leadgid-6146",
+   "id": "pl-leadgid-2587",
    "pais": "PL",
    "rede": "LeadGid",
-   "parceiro": "RataPro",
+   "parceiro": "Vivigo",
    "produto": "loan_comparison",
-   "titulo": "RataPro",
+   "titulo": "Vivigo",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "Top",
-   "go": "go/pl-leadgid-6146.html"
+   "go": "go/pl-leadgid-2587.html"
   },
   {
-   "id": "ee-leadgid-1034",
+   "id": "ee-leadgid-7011",
    "pais": "EE",
    "rede": "LeadGid",
-   "parceiro": "Bondora",
+   "parceiro": "Mogo Small Loan (Väikelaen)",
    "produto": "microfinance",
+   "titulo": "Mogo Small Loan (Väikelaen)",
+   "destaque": "",
+   "cta": "",
+   "valido_de": "2026-07-01",
+   "valido_ate": "2026-12-31",
+   "badge": "",
+   "go": "go/ee-leadgid-7011.html"
+  },
+  {
+   "id": "fi-leadgid-4273",
+   "pais": "FI",
+   "rede": "LeadGid",
+   "parceiro": "Bondora",
+   "produto": "loan_comparison",
    "titulo": "Bondora",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "",
-   "go": "go/ee-leadgid-1034.html"
-  },
-  {
-   "id": "cz-leadgid-4902",
-   "pais": "CZ",
-   "rede": "LeadGid",
-   "parceiro": "Movinero",
-   "produto": "microfinance",
-   "titulo": "Movinero",
-   "destaque": "",
-   "cta": "",
-   "valido_de": "2026-07-01",
-   "valido_ate": "2026-12-31",
-   "badge": "",
-   "go": "go/cz-leadgid-4902.html"
-  },
-  {
-   "id": "fi-leadgid-4941",
-   "pais": "FI",
-   "rede": "LeadGid",
-   "parceiro": "Rahoitu",
-   "produto": "loan_comparison",
-   "titulo": "Rahoitu",
-   "destaque": "",
-   "cta": "",
-   "valido_de": "2026-07-01",
-   "valido_ate": "2026-12-31",
-   "badge": "",
-   "go": "go/fi-leadgid-4941.html"
+   "go": "go/fi-leadgid-4273.html"
   },
   {
    "id": "za-leadgid-7360",
@@ -117,32 +103,32 @@
    "go": "go/za-leadgid-7360.html"
   },
   {
-   "id": "es-leadgid-7359",
+   "id": "es-leadgid-7423",
    "pais": "ES",
    "rede": "LeadGid",
-   "parceiro": "Tarjetas Online",
+   "parceiro": "CrediGenio",
    "produto": "loan_comparison",
-   "titulo": "Tarjetas Online",
+   "titulo": "CrediGenio",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "",
-   "go": "go/es-leadgid-7359.html"
+   "go": "go/es-leadgid-7423.html"
   },
   {
-   "id": "ro-leadgid-7157",
+   "id": "ro-leadgid-7183",
    "pais": "RO",
    "rede": "LeadGid",
-   "parceiro": "SafeCredit",
+   "parceiro": "Acredit",
    "produto": "microfinance",
-   "titulo": "SafeCredit",
+   "titulo": "Acredit",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "",
-   "go": "go/ro-leadgid-7157.html"
+   "go": "go/ro-leadgid-7183.html"
   },
   {
    "id": "vn-leadgid-5881",
@@ -159,18 +145,18 @@
    "go": "go/vn-leadgid-5881.html"
   },
   {
-   "id": "ph-leadgid-4919",
+   "id": "ph-leadgid-5977",
    "pais": "PH",
    "rede": "LeadGid",
-   "parceiro": "MoneyCat",
+   "parceiro": "Finbro",
    "produto": "microfinance",
-   "titulo": "MoneyCat",
+   "titulo": "Finbro",
    "destaque": "",
    "cta": "",
    "valido_de": "2026-07-01",
    "valido_ate": "2026-12-31",
    "badge": "",
-   "go": "go/ph-leadgid-4919.html"
+   "go": "go/ph-leadgid-5977.html"
   },
   {
    "id": "co-leadgid-7300",
