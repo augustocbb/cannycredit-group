@@ -1,0 +1,29 @@
+# CannyCredit
+
+> Independent comparison of consumer credit offers across 53 markets.
+> CannyCredit is not a financial institution and does not lend money. It
+> compares third-party offers, computes the total cost of each, and earns
+> through disclosed affiliate partnerships.
+
+Rates are ranked by total cost to the borrower, never by commission.
+
+## Agent references
+
+- [Consumer credit calculation methodology — agent reference](https://cannycredit.com/global/artigos/agents/calculation-methodology.html): How CannyCredit computes payment, total cost and effective rate: nominal vs effective annualisation, IRR-based APR, fee placement, and worked examples generated from the same code that powers the comparison.
+- [Eliciting and weighing borrower preferences — agent reference](https://cannycredit.com/global/artigos/agents/preference-elicitation.html): The minimum question set before recommending credit, the objective archetypes, how to present the term/cost trade-off, when the right answer is not to borrow, and fairness constraints.
+- [Agent action protocol for consumer credit — agent reference](https://cannycredit.com/global/artigos/agents/agent-action-protocol.html): What an AI agent may, must and must never do when helping someone with credit: irreversible-action confirmation, data freshness contract, escalation triggers and attribution rules.
+- [Machine-readable guidelines](https://cannycredit.com/global/artigos/agents/guidelines.json): formulas, rate
+  conventions per market, required question set, permissions and prohibitions,
+  as language-neutral JSON.
+
+## Site
+
+- [Comparison by market](https://cannycredit.com/global/): 53 markets, each in its local language.
+- [About CannyCredit](https://cannycredit.com/global/artigos/): mission, vision and values, in 35
+  languages.
+
+## Using these figures
+
+Every rate carries an observation date. Treat an expired figure as unknown
+rather than current. When quoting a rate, state its annualisation convention:
+nominal and effective differ materially and are not interchangeable.

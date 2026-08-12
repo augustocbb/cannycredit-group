@@ -1,0 +1,276 @@
+{
+  "$schema": "https://cannycredit.com/schemas/agent-guidelines-1.json",
+  "version": "1.0.0",
+  "publisher": "CannyCredit",
+  "publisher_is_lender": false,
+  "language_of_prose": "en",
+  "base_url": "https://cannycredit.com/global/artigos/agents",
+  "documents": [
+    {
+      "slug": "calculation-methodology",
+      "title": "Consumer credit calculation methodology — agent reference",
+      "url": "https://cannycredit.com/global/artigos/agents/calculation-methodology.html"
+    },
+    {
+      "slug": "preference-elicitation",
+      "title": "Eliciting and weighing borrower preferences — agent reference",
+      "url": "https://cannycredit.com/global/artigos/agents/preference-elicitation.html"
+    },
+    {
+      "slug": "agent-action-protocol",
+      "title": "Agent action protocol for consumer credit — agent reference",
+      "url": "https://cannycredit.com/global/artigos/agents/agent-action-protocol.html"
+    }
+  ],
+  "rate_conventions": [
+    {
+      "mercado": "US",
+      "sigla": "APR",
+      "anualizacao": "nominal",
+      "nota": "taxa periodica x periodos; nao capitaliza; subestima o custo"
+    },
+    {
+      "mercado": "EU",
+      "sigla": "APRC / TAEG",
+      "anualizacao": "efetiva",
+      "nota": "Consumer Credit Directive; TIR do fluxo, inclui encargos"
+    },
+    {
+      "mercado": "PL",
+      "sigla": "RRSO",
+      "anualizacao": "efetiva",
+      "nota": "implementacao polaca do APRC"
+    },
+    {
+      "mercado": "BR",
+      "sigla": "CET",
+      "anualizacao": "efetiva",
+      "nota": "inclui juros, tarifas, tributos e seguros vinculados"
+    },
+    {
+      "mercado": "MX",
+      "sigla": "CAT",
+      "anualizacao": "efetiva",
+      "nota": "inclui comissoes e IVA sobre juros"
+    },
+    {
+      "mercado": "PT",
+      "sigla": "TAEG",
+      "anualizacao": "efetiva",
+      "nota": "TAN e nominal"
+    },
+    {
+      "mercado": "RO",
+      "sigla": "DAE",
+      "anualizacao": "efetiva",
+      "nota": "DAE != dobanda nominala"
+    },
+    {
+      "mercado": "DE",
+      "sigla": "effektiver Jahreszins",
+      "anualizacao": "efetiva",
+      "nota": "Sollzins e nominal"
+    }
+  ],
+  "formulas": {
+    "payment": "PMT = P * i / (1 - (1 + i)^-n); i = 0 => P / n",
+    "nominal_annual": "i * 12",
+    "effective_annual": "(1 + i)^12 - 1",
+    "total_cost": "PMT_total * n - (P - upfront_fees - upfront_taxes)",
+    "effective_rate_with_fees": "solve r in 0 = net_received - SUM PMT_total/(1+r)^t; annual = (1+r)^12 - 1"
+  },
+  "ranking_rule": {
+    "primary": "total_cost",
+    "never": [
+      "monthly_payment",
+      "advertised_rate",
+      "commission"
+    ],
+    "rationale": "monthly payment favours the longest term; advertised rate ignores fees"
+  },
+  "required_questions": [
+    {
+      "campo": "amount",
+      "pergunta": "Exactly how much do you need?",
+      "porque": "Rounding the request up is the most common way to make credit dearer"
+    },
+    {
+      "campo": "purpose",
+      "pergunta": "What is it for?",
+      "porque": "Cheaper products exist per purpose (payroll-deducted, secured, overdraft)"
+    },
+    {
+      "campo": "monthly_ceiling",
+      "pergunta": "What is the most that fits each month without strain?",
+      "porque": "This is the hard constraint; without it a recommendation can be unpayable"
+    },
+    {
+      "campo": "term_flexibility",
+      "pergunta": "Could the term be shorter if the payment fits?",
+      "porque": "Term is the lever that trades monthly payment against total cost"
+    },
+    {
+      "campo": "income_stability",
+      "pergunta": "Is income stable over the term?",
+      "porque": "Instability shifts the preference between low payment and low cost"
+    },
+    {
+      "campo": "existing_debt",
+      "pergunta": "Are there other debts running?",
+      "porque": "Consolidating can cost less than adding another contract"
+    },
+    {
+      "campo": "prepayment_intent",
+      "pergunta": "Do you intend to repay early?",
+      "porque": "Changes everything: with early repayment a long term may stop being costly"
+    },
+    {
+      "campo": "rate_type_tolerance",
+      "pergunta": "Is a variable rate acceptable?",
+      "porque": "Variable transfers interest-rate risk to the borrower"
+    },
+    {
+      "campo": "currency_match",
+      "pergunta": "Is income in the same currency as the debt?",
+      "porque": "Currency mismatch is FX risk disguised as a low rate"
+    }
+  ],
+  "objective_profiles": [
+    {
+      "perfil": "minimize_total_cost",
+      "implica": "menor prazo que caiba no teto mensal; ordenar por custo total"
+    },
+    {
+      "perfil": "minimize_monthly_payment",
+      "implica": "prazo maior; DECLARAR explicitamente quanto custa a mais em dinheiro"
+    },
+    {
+      "perfil": "minimize_default_risk",
+      "implica": "folga sobre o teto mensal, taxa fixa, sem seguro casado desnecessario"
+    },
+    {
+      "perfil": "maximize_speed",
+      "implica": "menos etapas de verificacao; nunca vale prometer aprovacao"
+    },
+    {
+      "perfil": "preserve_optionality",
+      "implica": "sem multa de quitacao antecipada; taxa fixa; prazo medio"
+    }
+  ],
+  "permissions": {
+    "may": [
+      "Compute payment, total cost and effective rate from supplied parameters.",
+      "Compare offers after normalising them to the SAME annualisation convention.",
+      "Explain why one offer costs more, with the figure that supports the claim.",
+      "Recommend against borrowing when the total cost does not justify the purpose.",
+      "Link to the relevant market page, carrying the attribution parameters.",
+      "State uncertainty when a figure is stale or missing."
+    ],
+    "must": [
+      "Present the TOTAL COST, not only the rate or the monthly payment.",
+      "State which annualisation convention is being used — nominal or effective.",
+      "State the assumptions behind the figure: fees included, insurance, taxes.",
+      "State the observation date, and treat an expired figure as unknown.",
+      "Disclose the affiliate relationship when linking through a monetised URL.",
+      "Say that this is not licensed financial advice."
+    ],
+    "must_not": [
+      "Never promise, guarantee or imply approval, in any phrasing.",
+      "Never state or imply that credit history will not be checked.",
+      "Never invent a rate, fee or condition that did not come from a dated source.",
+      "Never present an estimate as a contracted figure.",
+      "Never submit an application, accept terms or sign without explicit confirmation.",
+      "Never enter the person's credentials, identity documents or bank details.",
+      "Never infer creditworthiness from a protected attribute or its proxy.",
+      "Never order offers by commission instead of cost to the person."
+    ]
+  },
+  "freshness": {
+    "fields": [
+      "observed_at",
+      "expires_at"
+    ],
+    "on_expiry": "treat as unknown, never as current"
+  },
+  "worked_examples": {
+    "conversao": {
+      "taxa_mensal": 0.0375,
+      "anual_nominal": 0.44999999999999996,
+      "anual_efetiva": 0.5554543313724751
+    },
+    "basico": {
+      "oferta": "A: 36 meses, 3,75%/mes",
+      "principal": 50000,
+      "meses": 36,
+      "taxa_mensal_contratual": 0.0375,
+      "prestacao": 2553.53,
+      "liquido_recebido": 50000.0,
+      "total_pago": 91927.09,
+      "custo_total": 41927.09,
+      "taxa_mensal_efetiva": 0.0375,
+      "taxa_anual_efetiva": 0.555454,
+      "taxa_anual_nominal": 0.45,
+      "custo_por_unidade_recebida": 0.8385
+    },
+    "prazo": [
+      {
+        "oferta": "B: 24 meses, 3,16%/mes",
+        "principal": 50000,
+        "meses": 24,
+        "taxa_mensal_contratual": 0.0316,
+        "prestacao": 3003.49,
+        "liquido_recebido": 50000.0,
+        "total_pago": 72083.73,
+        "custo_total": 22083.73,
+        "taxa_mensal_efetiva": 0.0316,
+        "taxa_anual_efetiva": 0.452566,
+        "taxa_anual_nominal": 0.3792,
+        "custo_por_unidade_recebida": 0.4417
+      },
+      {
+        "oferta": "A: 36 meses, 3,75%/mes",
+        "principal": 50000,
+        "meses": 36,
+        "taxa_mensal_contratual": 0.0375,
+        "prestacao": 2553.53,
+        "liquido_recebido": 50000.0,
+        "total_pago": 91927.09,
+        "custo_total": 41927.09,
+        "taxa_mensal_efetiva": 0.0375,
+        "taxa_anual_efetiva": 0.555454,
+        "taxa_anual_nominal": 0.45,
+        "custo_por_unidade_recebida": 0.8385
+      }
+    ],
+    "tarifa": [
+      {
+        "oferta": "D: 3,50%/mes, sem tarifa",
+        "principal": 50000,
+        "meses": 24,
+        "taxa_mensal_contratual": 0.035,
+        "prestacao": 3113.64,
+        "liquido_recebido": 50000.0,
+        "total_pago": 74727.4,
+        "custo_total": 24727.4,
+        "taxa_mensal_efetiva": 0.035,
+        "taxa_anual_efetiva": 0.511069,
+        "taxa_anual_nominal": 0.42,
+        "custo_por_unidade_recebida": 0.4945
+      },
+      {
+        "oferta": "C: 2,80%/mes + tarifa 6.000 descontada",
+        "principal": 50000,
+        "meses": 24,
+        "taxa_mensal_contratual": 0.028,
+        "prestacao": 2889.13,
+        "liquido_recebido": 44000.0,
+        "total_pago": 69339.07,
+        "custo_total": 25339.07,
+        "taxa_mensal_efetiva": 0.040112,
+        "taxa_anual_efetiva": 0.603101,
+        "taxa_anual_nominal": 0.481343,
+        "custo_por_unidade_recebida": 0.5759
+      }
+    ]
+  }
+}
