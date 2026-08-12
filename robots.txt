@@ -1,0 +1,8 @@
+# CannyCredit — gerado por loan_site/gerar.py; publicado na RAIZ do domínio
+User-agent: *
+Allow: /
+# Redirecionadores de oferta: passagem para a rede, nada a indexar.
+Disallow: /global/go/
+
+Sitemap: https://cannycredit.com/global/sitemap.xml
+Sitemap: https://cannycredit.com/global/artigos/sitemap.xml
